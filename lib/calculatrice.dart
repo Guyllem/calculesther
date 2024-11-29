@@ -14,37 +14,33 @@ class _CalculatriceState extends State<Calculatrice> {
     return Scaffold(
       body: Column(
         children: [
-          Row(
-            children: [
-              Expanded(
-                flex: 1,
-                  child: Container(
-                    color: AppColors.black,
-                    padding: const EdgeInsets.all(16),
-                    child: const Text("0",
-                      style: TextStyle(
-                        fontSize: 16,
-                        color: AppColors.text),
-                        textAlign: TextAlign.right,
-                      ),),
-                  )
-                ]
+          Expanded(
+            flex: 1,
+            child: Container(
+              color: AppColors.deepPurple,
+              padding: const EdgeInsets.fromLTRB(0, 0, 25, 10),
+              alignment: Alignment.bottomRight,
+              child: const Text("0",
+                style: TextStyle(
+                  fontSize: 80,
+                  color: AppColors.text),
+                  textAlign: TextAlign.right,
               ),
-          Row(
-              children: [
-                Expanded(
-                  flex: 2,
-                  child: Container(
-                    color: AppColors.deepPurple,
-                    padding: const EdgeInsets.all(16),
-                    child: const Text("0",
-                      style: TextStyle(
-                          fontSize: 16,
-                          color: AppColors.text),
-                      textAlign: TextAlign.right,
-                    ),),
-                )
-              ]
+            ),
+          ),
+          Expanded(
+            flex: 2,
+            child: Container(
+              color: AppColors.black,
+              padding: const EdgeInsets.all(16),
+              alignment: Alignment.centerRight,
+              child: const Text("0",
+                style: TextStyle(
+                    fontSize: 16,
+                    color: AppColors.text),
+                textAlign: TextAlign.right,
+              ),
+            ),
           )
         ],
       ),
