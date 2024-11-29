@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:calculesther/theme/colors.dart';
 
 class Calculatrice extends StatefulWidget {
   const Calculatrice({super.key});
@@ -10,12 +11,18 @@ class Calculatrice extends StatefulWidget {
 class _CalculatriceState extends State<Calculatrice> {
   @override
   Widget build(BuildContext context) {
-    return const Center(
-      child: Text("Bonjour",
-        style: TextStyle(
-          fontSize: 60,
-        ),
-      ),
+    return const Scaffold(
+      body: Column(
+        children: [
+          Expanded(
+            flex: 1,
+            child: Text("Bonjour"),
+          ),
+          Expanded(
+            flex: 3,
+            child: Text("Re"),
+          )
+        ],)
     );
   }
 }

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:calculesther/theme/colors.dart';
 import 'calculatrice.dart';
 
 void main() {
@@ -18,6 +19,7 @@ class _MyAppState extends State<MyApp> {
     return const MaterialApp(
       home: Scaffold(
         body: Calculatrice(),
+        backgroundColor: AppColors.text,
       ),
     );
   }
