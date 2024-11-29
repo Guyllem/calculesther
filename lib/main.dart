@@ -1,20 +1,25 @@
 import 'package:flutter/material.dart';
+import 'calculatrice.dart';
 
 void main() {
-  runApp(const Calculator());
+  runApp(const MyApp());
 }
 
-class Calculator extends StatelessWidget {
-  const Calculator({super.key});
+class MyApp extends StatefulWidget {
+  const MyApp({super.key});
 
   @override
+  State<MyApp> createState() => _MyAppState();
+}
+
+class _MyAppState extends State<MyApp> {
+  @override
   Widget build(BuildContext context) {
-    return  const MaterialApp(
+    return const MaterialApp(
       home: Scaffold(
-        body: Center(
-          child: Text("Bonjour"),
-        ),
+        body: Calculatrice(),
       ),
     );
   }
 }
+
