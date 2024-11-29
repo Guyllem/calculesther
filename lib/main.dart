@@ -19,7 +19,6 @@ class _MyAppState extends State<MyApp> {
     return const MaterialApp(
       home: Scaffold(
         body: Calculatrice(),
-        backgroundColor: AppColors.text,
       ),
     );
   }

@@ -11,18 +11,43 @@ class Calculatrice extends StatefulWidget {
 class _CalculatriceState extends State<Calculatrice> {
   @override
   Widget build(BuildContext context) {
-    return const Scaffold(
+    return Scaffold(
       body: Column(
         children: [
-          Expanded(
-            flex: 1,
-            child: Text("Bonjour"),
-          ),
-          Expanded(
-            flex: 3,
-            child: Text("Re"),
+          Row(
+            children: [
+              Expanded(
+                flex: 1,
+                  child: Container(
+                    color: AppColors.black,
+                    padding: const EdgeInsets.all(16),
+                    child: const Text("0",
+                      style: TextStyle(
+                        fontSize: 16,
+                        color: AppColors.text),
+                        textAlign: TextAlign.right,
+                      ),),
+                  )
+                ]
+              ),
+          Row(
+              children: [
+                Expanded(
+                  flex: 2,
+                  child: Container(
+                    color: AppColors.deepPurple,
+                    padding: const EdgeInsets.all(16),
+                    child: const Text("0",
+                      style: TextStyle(
+                          fontSize: 16,
+                          color: AppColors.text),
+                      textAlign: TextAlign.right,
+                    ),),
+                )
+              ]
           )
-        ],)
+        ],
+      ),
     );
   }
 }
