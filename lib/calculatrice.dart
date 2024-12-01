@@ -17,12 +17,13 @@ class _CalculatriceState extends State<Calculatrice> {
           Expanded(
             flex: 1,
             child: Container(
-              color: AppColors.deepPurple,
+              color: AppColors.topLayout,
               padding: const EdgeInsets.fromLTRB(0, 0, 25, 10),
               alignment: Alignment.bottomRight,
               child: const Text("0",
                 style: TextStyle(
-                  fontSize: 80,
+                  fontSize: 100,
+                  fontFamily: "Filxgirl",
                   color: AppColors.text),
                   textAlign: TextAlign.right,
               ),
@@ -34,14 +35,32 @@ class _CalculatriceState extends State<Calculatrice> {
               color: AppColors.black,
               padding: const EdgeInsets.all(16),
               alignment: Alignment.centerRight,
-              child: const Text("0",
-                style: TextStyle(
-                    fontSize: 16,
-                    color: AppColors.text),
-                textAlign: TextAlign.right,
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                children: [
+                  FilledButton(
+                      onPressed: () {},
+                      style: ButtonStyle(
+                        minimumSize: const WidgetStatePropertyAll(Size(80, 80)),
+                        shape: WidgetStatePropertyAll(ContinuousRectangleBorder(
+                          borderRadius: BorderRadius.circular(50),
+                          side: const BorderSide(
+                            color: AppColors.topLayout,
+                            width: 7
+                          )
+                          )
+                        )
+                      ),
+                      child: const Text("1",
+                        style: TextStyle(
+                          fontSize: 50,
+                        ),
+                      ),
+                  ),
+                ],
               ),
             ),
-          )
+          ),
         ],
       ),
     );
