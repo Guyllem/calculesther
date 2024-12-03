@@ -9,6 +9,17 @@ class Calculatrice extends StatefulWidget {
 }
 
 class _CalculatriceState extends State<Calculatrice> {
+
+  String _currentTap = "0";
+
+  /// Update la variable dynamiquement
+  /// TODO : laisser en int et simplement a l'affichage string
+  void _updateNumber(String number){
+    setState(() {
+      _currentTap = "$_currentTap$number";
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -20,8 +31,8 @@ class _CalculatriceState extends State<Calculatrice> {
               color: AppColors.topLayout,
               padding: const EdgeInsets.fromLTRB(0, 0, 25, 10),
               alignment: Alignment.bottomRight,
-              child: const Text("0",
-                style: TextStyle(
+              child: Text(_currentTap,
+                style: const TextStyle(
                   fontSize: 100,
                   fontFamily: "Filxgirl",
                   color: AppColors.text),
@@ -39,7 +50,9 @@ class _CalculatriceState extends State<Calculatrice> {
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [
                   FilledButton(
-                      onPressed: () {},
+                      onPressed: () {
+                        _updateNumber("1");
+                      },
                       style: ButtonStyle(
                         minimumSize: const WidgetStatePropertyAll(Size(80, 80)),
                         shape: WidgetStatePropertyAll(ContinuousRectangleBorder(
