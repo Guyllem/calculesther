@@ -12,8 +12,6 @@ class _CalculatriceState extends State<Calculatrice> {
 
   String _currentTap = "0";
 
-  /// Update la variable dynamiquement
-  /// TODO : laisser en int et simplement a l'affichage string
   void _updateNumber(String number){
     setState(() {
       _currentTap = "$_currentTap$number";
