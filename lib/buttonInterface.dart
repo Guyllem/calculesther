@@ -1,23 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:calculesther/theme/colors.dart';
 
-class ButtonInterface extends StatefulWidget {
+class ButtonInterface extends StatelessWidget {
   final String label;
   final Function(String) onTap;
   const ButtonInterface({super.key, required this.label, required this.onTap});
 
   @override
-  State<ButtonInterface> createState() => _ButtonInterfaceState();
-}
-
-class _ButtonInterfaceState extends State<ButtonInterface> {
-
-
-  @override
   Widget build(BuildContext context) {
     return FilledButton(
       onPressed: () {
-        widget.onTap(widget.label);
+        onTap(label);
       },
       style : ButtonStyle(
         minimumSize:  const WidgetStatePropertyAll(Size(80, 80)),
@@ -30,7 +23,7 @@ class _ButtonInterfaceState extends State<ButtonInterface> {
           )
         )
         ),
-      child: Text(widget.label,
+      child: Text(label,
         style: const TextStyle(
           fontSize: 50,
         ),),
