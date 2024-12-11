@@ -1,3 +1,4 @@
+import 'package:calculesther/buttonInterface.dart';
 import 'package:flutter/material.dart';
 import 'package:calculesther/theme/colors.dart';
 
@@ -14,7 +15,17 @@ class _CalculatriceState extends State<Calculatrice> {
 
   void _updateNumber(String number){
     setState(() {
-      _currentTap = "$_currentTap$number";
+      if (_currentTap == "0"){
+        _currentTap = number;
+      } else {
+        _currentTap = "$_currentTap$number";
+      }
+    });
+  }
+
+  void _clearUI(){
+    setState(() {
+      _currentTap = "0";
     });
   }
 
@@ -47,27 +58,10 @@ class _CalculatriceState extends State<Calculatrice> {
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [
-                  FilledButton(
-                      onPressed: () {
-                        _updateNumber("1");
-                      },
-                      style: ButtonStyle(
-                        minimumSize: const WidgetStatePropertyAll(Size(80, 80)),
-                        shape: WidgetStatePropertyAll(ContinuousRectangleBorder(
-                          borderRadius: BorderRadius.circular(50),
-                          side: const BorderSide(
-                            color: AppColors.topLayout,
-                            width: 7
-                          )
-                          )
-                        )
-                      ),
-                      child: const Text("1",
-                        style: TextStyle(
-                          fontSize: 50,
-                        ),
-                      ),
-                  ),
+                  ButtonInterface(label: "0", onTap: (value) => _updateNumber(value)),
+                  ButtonInterface(label: "1", onTap: (value) => _updateNumber(value)),
+                  ButtonInterface(label: "2", onTap: (value) => _updateNumber(value)),
+                  ButtonInterface(label: "CE", onTap: (value) => _clearUI())
                 ],
               ),
             ),
