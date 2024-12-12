@@ -26,6 +26,7 @@ class ButtonInterface extends StatelessWidget {
       child: Text(label,
         style: TextStyle(
           fontSize: interfaceSize,
+          fontFamily: "PlaneCrash"
         ),
       ),
     );

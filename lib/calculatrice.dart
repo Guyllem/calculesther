@@ -42,8 +42,8 @@ class _CalculatriceState extends State<Calculatrice> {
               alignment: Alignment.bottomRight,
               child: Text(_currentTap,
                 style: const TextStyle(
-                  fontSize: 100,
-                  fontFamily: "Filxgirl",
+                  fontSize: 80,
+                  fontFamily: "Lexend-Regular",
                   color: AppColors.text),
                   textAlign: TextAlign.right,
               ),

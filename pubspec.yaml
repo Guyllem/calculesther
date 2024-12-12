@@ -75,8 +75,9 @@ flutter:
   # list giving the asset and other descriptors for the font. For
   # example:
   fonts:
-    - family: "Filxgirl"
+    - family: "Lexend-Regular"
       fonts:
-        - asset: assets/fonts/Filxgirl.ttf
+        - asset: assets/fonts/Lexend-Regular.ttf
+
 
 
