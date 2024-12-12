@@ -3,8 +3,9 @@ import 'package:calculesther/theme/colors.dart';
 
 class ButtonInterface extends StatelessWidget {
   final String label;
+  final double interfaceSize;
   final Function(String) onTap;
-  const ButtonInterface({super.key, required this.label, required this.onTap});
+  const ButtonInterface({super.key, required this.label, required this.interfaceSize, required this.onTap});
 
   @override
   Widget build(BuildContext context) {
@@ -13,21 +14,21 @@ class ButtonInterface extends StatelessWidget {
         onTap(label);
       },
       style : ButtonStyle(
-        minimumSize:  const WidgetStatePropertyAll(Size(80, 80)),
         shape: WidgetStatePropertyAll(ContinuousRectangleBorder(
-          borderRadius: BorderRadius.circular(50),
+          borderRadius: BorderRadius.circular(45),
           side: const BorderSide(
             color: AppColors.topLayout,
-            width: 7,
+            width: 5,
           )
           )
         )
         ),
       child: Text(label,
-        style: const TextStyle(
-          fontSize: 50,
-        ),),
-      );
+        style: TextStyle(
+          fontSize: interfaceSize,
+        ),
+      ),
+    );
   }
 }
 
