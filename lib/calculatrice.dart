@@ -37,7 +37,7 @@ class _CalculatriceState extends State<Calculatrice> {
           Expanded(
             flex: 1,
             child: Container(
-              color: AppColors.topLayout,
+              color: AppColors.black,
               padding: const EdgeInsets.fromLTRB(0, 0, 25, 10),
               alignment: Alignment.bottomRight,
               child: Text(_currentTap,

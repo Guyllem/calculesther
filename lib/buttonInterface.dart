@@ -9,20 +9,19 @@ class ButtonInterface extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return FilledButton(
+    return ElevatedButton(
       onPressed: () {
         onTap(label);
       },
-      style : ButtonStyle(
-        shape: WidgetStatePropertyAll(ContinuousRectangleBorder(
-          borderRadius: BorderRadius.circular(45),
-          side: const BorderSide(
-            color: AppColors.topLayout,
-            width: 5,
-          )
-          )
+      style : ElevatedButton.styleFrom(
+        backgroundColor:AppColors.black,
+        shadowColor: AppColors.details,
+        elevation: 10,
+        side: const BorderSide(color: AppColors.purple, width: 1),
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(25)
         )
-        ),
+      ),
       child: Text(label,
         style: TextStyle(
           fontSize: interfaceSize,
