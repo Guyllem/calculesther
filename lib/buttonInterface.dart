@@ -25,7 +25,15 @@ class ButtonInterface extends StatelessWidget {
       child: Text(label,
         style: TextStyle(
           fontSize: interfaceSize,
-          fontFamily: "PlaneCrash"
+          fontFamily: "PlaneCrash",
+          color: AppColors.text,
+          shadows: const <Shadow> [
+            Shadow(
+              offset: Offset(0,0),
+              blurRadius: 10,
+              color: AppColors.details,
+            )
+          ],
         ),
       ),
     );

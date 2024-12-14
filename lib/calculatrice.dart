@@ -43,9 +43,17 @@ class _CalculatriceState extends State<Calculatrice> {
               child: Text(_currentTap,
                 style: const TextStyle(
                   fontSize: 80,
+                    shadows: <Shadow> [
+                      Shadow(
+                        offset: Offset(1,1),
+                        blurRadius: 10,
+                        color: AppColors.shadow,
+                      )
+                    ],
                   fontFamily: "Lexend-Regular",
                   color: AppColors.text),
                   textAlign: TextAlign.right,
+
               ),
             ),
           ),
