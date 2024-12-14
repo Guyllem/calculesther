@@ -59,33 +59,53 @@ class _CalculatriceState extends State<Calculatrice> {
           ),
           Expanded(
             flex: 2,
-            child: Container(
-              color: AppColors.black,
-              child: GridView.count(
-                  crossAxisCount: 4,
-                  crossAxisSpacing: 20,
-                  mainAxisSpacing: 25,
-                  padding: const EdgeInsets.all(20),
-                  children: [
-                    ButtonInterface(label: "CE", interfaceSize: 30, onTap: (value) => _clearUI()),
-                    ButtonInterface(label: "0", interfaceSize: 40, onTap: (value) => _updateNumber(value)),
-                    ButtonInterface(label: "1", interfaceSize: 40,onTap: (value) => _updateNumber(value)),
-                    ButtonInterface(label: "2", interfaceSize: 40,onTap: (value) => _updateNumber(value)),
-                    ButtonInterface(label: "3", interfaceSize: 40,onTap: (value) => _updateNumber(value)),
-                    ButtonInterface(label: "4", interfaceSize: 40,onTap: (value) => _updateNumber(value)),
-                    ButtonInterface(label: "5", interfaceSize: 40,onTap: (value) => _updateNumber(value)),
-                    ButtonInterface(label: "6", interfaceSize: 40,onTap: (value) => _updateNumber(value)),
-                    ButtonInterface(label: "7", interfaceSize: 40,onTap: (value) => _updateNumber(value)),
-                    ButtonInterface(label: "8", interfaceSize: 40, onTap: (value) => _updateNumber(value)),
-                    ButtonInterface(label: "9", interfaceSize: 40,onTap: (value) => _updateNumber(value)),
-                    ButtonInterface(label: "+", interfaceSize: 40,onTap: (value) => _updateNumber(value)),
-                    ButtonInterface(label: "-", interfaceSize: 40,onTap: (value) => _updateNumber(value)),
-                    ButtonInterface(label: "x", interfaceSize: 40,onTap: (value) => _updateNumber(value)),
-                    ButtonInterface(label: "/", interfaceSize: 40,onTap: (value) => _updateNumber(value)),
-                    ButtonInterface(label: "²", interfaceSize: 40,onTap: (value) => _updateNumber(value)),
-                    ButtonInterface(label: "coeur", interfaceSize: 15,onTap: (value) => _updateNumber(value)),
-                  ],
-              ),
+            child: Column(
+              children: [
+                Expanded(
+                  flex: 2,
+                  child: Container(
+                      color: AppColors.black,
+                      child: GridView.count(
+                          crossAxisCount: 4,
+                          crossAxisSpacing: 20,
+                          mainAxisSpacing: 25,
+                          padding: const EdgeInsets.all(20),
+                          children: [
+                            ButtonInterface(label: "CE", interfaceSize: 30, onTap: (value) => _clearUI()),
+                            ButtonInterface(label: "0", interfaceSize: 40, onTap: (value) => _updateNumber(value)),
+                            ButtonInterface(label: "1", interfaceSize: 40,onTap: (value) => _updateNumber(value)),
+                            ButtonInterface(label: "2", interfaceSize: 40,onTap: (value) => _updateNumber(value)),
+                            ButtonInterface(label: "3", interfaceSize: 40,onTap: (value) => _updateNumber(value)),
+                            ButtonInterface(label: "4", interfaceSize: 40,onTap: (value) => _updateNumber(value)),
+                            ButtonInterface(label: "5", interfaceSize: 40,onTap: (value) => _updateNumber(value)),
+                            ButtonInterface(label: "6", interfaceSize: 40,onTap: (value) => _updateNumber(value)),
+                            ButtonInterface(label: "7", interfaceSize: 40,onTap: (value) => _updateNumber(value)),
+                            ButtonInterface(label: "8", interfaceSize: 40, onTap: (value) => _updateNumber(value)),
+                            ButtonInterface(label: "9", interfaceSize: 40,onTap: (value) => _updateNumber(value)),
+                          ],
+                      ),
+                    ),
+                ),
+                Expanded(
+                  flex: 1,
+                    child: Container(
+                      color: AppColors.black,
+                      child: GridView.count(
+                        crossAxisCount: 4,
+                        crossAxisSpacing: 20,
+                        mainAxisSpacing: 25,
+                        padding: const EdgeInsets.all(20),
+                        children: [
+                          ButtonInterface(label: "+", interfaceSize: 40,onTap: (value) => _updateNumber(value)),
+                          ButtonInterface(label: "-", interfaceSize: 40,onTap: (value) => _updateNumber(value)),
+                          ButtonInterface(label: "x", interfaceSize: 40,onTap: (value) => _updateNumber(value)),
+                          ButtonInterface(label: "/", interfaceSize: 40,onTap: (value) => _updateNumber(value)),
+                          ButtonInterface(label: "²", interfaceSize: 40,onTap: (value) => _updateNumber(value))
+                        ],
+                      )
+                )
+                )
+              ],
             ),
           ),
         ],
