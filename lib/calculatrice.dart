@@ -42,10 +42,10 @@ class _CalculatriceState extends State<Calculatrice> {
               alignment: Alignment.bottomRight,
               child: Text(_currentTap,
                 style: const TextStyle(
-                  fontSize: 80,
+                  fontSize: 90,
                     shadows: <Shadow> [
                       Shadow(
-                        offset: Offset(1,1),
+                        offset: Offset(2,2),
                         blurRadius: 10,
                         color: AppColors.shadow,
                       )
@@ -64,47 +64,69 @@ class _CalculatriceState extends State<Calculatrice> {
                 Expanded(
                   flex: 2,
                   child: Container(
-                      color: AppColors.black,
-                      child: GridView.count(
-                          crossAxisCount: 4,
-                          crossAxisSpacing: 20,
-                          mainAxisSpacing: 25,
-                          padding: const EdgeInsets.all(20),
+                    padding: const EdgeInsets.all(16),
+                    color: AppColors.black,
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
-                            ButtonInterface(label: "CE", interfaceSize: 30, onTap: (value) => _clearUI()),
-                            ButtonInterface(label: "0", interfaceSize: 40, onTap: (value) => _updateNumber(value)),
-                            ButtonInterface(label: "1", interfaceSize: 40,onTap: (value) => _updateNumber(value)),
-                            ButtonInterface(label: "2", interfaceSize: 40,onTap: (value) => _updateNumber(value)),
-                            ButtonInterface(label: "3", interfaceSize: 40,onTap: (value) => _updateNumber(value)),
-                            ButtonInterface(label: "4", interfaceSize: 40,onTap: (value) => _updateNumber(value)),
-                            ButtonInterface(label: "5", interfaceSize: 40,onTap: (value) => _updateNumber(value)),
-                            ButtonInterface(label: "6", interfaceSize: 40,onTap: (value) => _updateNumber(value)),
-                            ButtonInterface(label: "7", interfaceSize: 40,onTap: (value) => _updateNumber(value)),
-                            ButtonInterface(label: "8", interfaceSize: 40, onTap: (value) => _updateNumber(value)),
-                            ButtonInterface(label: "9", interfaceSize: 40,onTap: (value) => _updateNumber(value)),
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceAround,
+                              children: [
+                                ButtonInterface(label: "", interfaceSize: 40, width: 98, height: 70, onTap: (value) => _updateNumber(value)),
+                                ButtonInterface(label: "", interfaceSize: 40, width: 98, height: 70, onTap: (value) => _updateNumber(value)),
+                                ButtonInterface(label: "CE", interfaceSize: 35, width: 98, height: 70, onTap: (value) => _clearUI()),
+                                ButtonInterface(label: "Del", interfaceSize: 30, width: 98, height: 70, onTap: (value) => _updateNumber(value)),
+                              ],
+                            ),
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceAround,
+                              children: [
+                                ButtonInterface(label: "", interfaceSize: 40, width: 98, height: 70, onTap: (value) => _updateNumber(value)),
+                                ButtonInterface(label: "", interfaceSize: 40, width: 98, height: 70, onTap: (value) => _updateNumber(value)),
+                                ButtonInterface(label: "", interfaceSize: 40, width: 98, height: 70, onTap: (value) => _updateNumber(value)),
+                                ButtonInterface(label: "/", interfaceSize: 40, width: 98, height: 70, onTap: (value) => _updateNumber(value)),
+                              ],
+                            ),
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceAround,
+                              children: [
+                                ButtonInterface(label: "7", interfaceSize: 40, width: 92, height: 90, onTap: (value) => _updateNumber(value)),
+                                ButtonInterface(label: "8", interfaceSize: 40, width: 92, height: 90, onTap: (value) => _updateNumber(value)),
+                                ButtonInterface(label: "9", interfaceSize: 40, width: 92, height: 90, onTap: (value) => _updateNumber(value)),
+                                ButtonInterface(label: "x", interfaceSize: 40, width: 98, height: 70, onTap: (value) => _updateNumber(value)),
+                              ],
+                            ),
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceAround,
+                              children: [
+                                ButtonInterface(label: "4", interfaceSize: 40, width: 92, height: 90, onTap: (value) => _updateNumber(value)),
+                                ButtonInterface(label: "5", interfaceSize: 40, width: 92, height: 90, onTap: (value) => _updateNumber(value)),
+                                ButtonInterface(label: "6", interfaceSize: 40, width: 92, height: 90, onTap: (value) => _updateNumber(value)),
+                                ButtonInterface(label: "-", interfaceSize: 40, width: 98, height: 70, onTap: (value) => _updateNumber(value)),
+                              ],
+                            ),
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceAround,
+                              children: [
+                                ButtonInterface(label: "1", interfaceSize: 40, width: 92, height: 90, onTap: (value) => _updateNumber(value)),
+                                ButtonInterface(label: "2", interfaceSize: 40, width: 92, height: 90, onTap: (value) => _updateNumber(value)),
+                                ButtonInterface(label: "3", interfaceSize: 40, width: 92, height: 90, onTap: (value) => _updateNumber(value)),
+                                ButtonInterface(label: "+", interfaceSize: 40, width: 98, height: 70, onTap: (value) => _updateNumber(value)),
+                              ],
+                            ),
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceAround,
+                              children: [
+                                ButtonInterface(label: " ", interfaceSize: 40, width: 92, height: 90, onTap: (value) => _updateNumber(value)),
+                                ButtonInterface(label: "0", interfaceSize: 40, width: 92, height: 90, onTap: (value) => _updateNumber(value)),
+                                ButtonInterface(label: " ", interfaceSize: 40, width: 92, height: 90, onTap: (value) => _updateNumber(value)),
+                                ButtonInterface(label: "=", interfaceSize: 40, width: 98, height: 70, onTap: (value) => _updateNumber(value)),
+                              ],
+                            )
                           ],
                       ),
                     ),
                 ),
-                Expanded(
-                  flex: 1,
-                    child: Container(
-                      color: AppColors.black,
-                      child: GridView.count(
-                        crossAxisCount: 4,
-                        crossAxisSpacing: 20,
-                        mainAxisSpacing: 25,
-                        padding: const EdgeInsets.all(20),
-                        children: [
-                          ButtonInterface(label: "+", interfaceSize: 40,onTap: (value) => _updateNumber(value)),
-                          ButtonInterface(label: "-", interfaceSize: 40,onTap: (value) => _updateNumber(value)),
-                          ButtonInterface(label: "x", interfaceSize: 40,onTap: (value) => _updateNumber(value)),
-                          ButtonInterface(label: "/", interfaceSize: 40,onTap: (value) => _updateNumber(value)),
-                          ButtonInterface(label: "²", interfaceSize: 40,onTap: (value) => _updateNumber(value))
-                        ],
-                      )
-                )
-                )
               ],
             ),
           ),
