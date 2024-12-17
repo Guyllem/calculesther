@@ -23,6 +23,16 @@ class _CalculatriceState extends State<Calculatrice> {
     });
   }
 
+  void _deleteNumber(){
+    setState(() {
+      if (_currentTap.length == 1){
+        _currentTap = "0";
+      } else {
+        _currentTap = _currentTap.substring(0, _currentTap.length - 1);
+      }
+    });
+  }
+
   void _clearUI(){
     setState(() {
       _currentTap = "0";
@@ -80,9 +90,9 @@ class _CalculatriceState extends State<Calculatrice> {
                                           color: AppColors.details)] ,
                                       size: 40),
                                     onTap: (value) => _updateNumber(value)),
-                                ButtonInterface(label: "!", interfaceSize: 40, width: 98, height: 70, onTap: (value) => _updateNumber(value)),
+                                ButtonInterface(label: "ext", interfaceSize: 35, width: 98, height: 70, onTap: (value) => _updateNumber(value)),
                                 ButtonInterface(label: "AC", interfaceSize: 35, width: 98, height: 70, onTap: (value) => _clearUI()),
-                                ButtonInterface(label: "Del", interfaceSize: 30, width: 98, height: 70, onTap: (value) => _updateNumber(value)),
+                                ButtonInterface(label: "Del", interfaceSize: 30, width: 98, height: 70, onTap: (value) => _deleteNumber()),
                               ],
                             ),
                             Row(
