@@ -23,7 +23,7 @@ class _CalculatriceState extends State<Calculatrice> {
     });
   }
 
-  void _deleteNumber(){
+  void _deleteLast(){
     setState(() {
       if (_currentTap.length == 1){
         _currentTap = "0";
@@ -32,6 +32,14 @@ class _CalculatriceState extends State<Calculatrice> {
       }
     });
   }
+
+  /// Return true if last char of entry is digit, else false
+  bool _isDigit(String input){
+    if (input.isEmpty) return false;
+    String last = input[input.length - 1];
+    return int.tryParse(last) == null;
+  }
+
 
   void _clearUI(){
     setState(() {
@@ -92,7 +100,7 @@ class _CalculatriceState extends State<Calculatrice> {
                                     onTap: (value) => _updateNumber(value)),
                                 ButtonInterface(label: "ext", interfaceSize: 35, width: 98, height: 70, onTap: (value) => _updateNumber(value)),
                                 ButtonInterface(label: "AC", interfaceSize: 35, width: 98, height: 70, onTap: (value) => _clearUI()),
-                                ButtonInterface(label: "Del", interfaceSize: 30, width: 98, height: 70, onTap: (value) => _deleteNumber()),
+                                ButtonInterface(label: "Del", interfaceSize: 30, width: 98, height: 70, onTap: (value) => _deleteLast()),
                               ],
                             ),
                             Row(
