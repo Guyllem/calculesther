@@ -13,6 +13,7 @@ class _CalculatriceState extends State<Calculatrice> {
 
   String _currentTap = "0";
 
+  /// TODO : fair eun blocage de spam de signe
   void _updateNumber(String number){
     setState(() {
       if (_currentTap == "0"){
@@ -33,17 +34,39 @@ class _CalculatriceState extends State<Calculatrice> {
     });
   }
 
-  /// Return true if last char of entry is digit, else false
-  bool _isDigit(String input){
-    if (input.isEmpty) return false;
-    String last = input[input.length - 1];
-    return int.tryParse(last) == null;
-  }
-
-
   void _clearUI(){
     setState(() {
       _currentTap = "0";
+    });
+  }
+
+  void _operation() {
+    setState(() {
+      int result = 0;
+      if (_currentTap.contains("+")) {
+        List<String> members = _currentTap.split(" + ");
+        for (int i = 0; i < members.length; i++) {
+          int tempMember = int.tryParse(members[i]) ?? 0;
+
+          if (tempMember == 0) continue;
+          result += tempMember;
+        }
+        _currentTap = (result).toString();
+      }
+      if (_currentTap.contains("-")){
+        List<String> members = _currentTap.split(" - ");
+        for (int i = 0; i < members.length; i++) {
+          int tempMember = int.tryParse(members[i]) ?? 0;
+
+          if (tempMember == 0) continue;
+          if (result == 0){
+            result = tempMember;
+          }else {
+            result -= tempMember;
+          }
+        }
+        _currentTap = (result).toString();
+      }
     });
   }
 
@@ -127,7 +150,7 @@ class _CalculatriceState extends State<Calculatrice> {
                                 ButtonInterface(label: "4", interfaceSize: 40, width: 92, height: 90, onTap: (value) => _updateNumber(value)),
                                 ButtonInterface(label: "5", interfaceSize: 40, width: 92, height: 90, onTap: (value) => _updateNumber(value)),
                                 ButtonInterface(label: "6", interfaceSize: 40, width: 92, height: 90, onTap: (value) => _updateNumber(value)),
-                                ButtonInterface(label: "-", interfaceSize: 40, width: 98, height: 70, onTap: (value) => _updateNumber(value)),
+                                ButtonInterface(label: " - ", interfaceSize: 40, width: 98, height: 70, onTap: (value) => _updateNumber(value)),
                               ],
                             ),
                             Row(
@@ -136,7 +159,7 @@ class _CalculatriceState extends State<Calculatrice> {
                                 ButtonInterface(label: "1", interfaceSize: 40, width: 92, height: 90, onTap: (value) => _updateNumber(value)),
                                 ButtonInterface(label: "2", interfaceSize: 40, width: 92, height: 90, onTap: (value) => _updateNumber(value)),
                                 ButtonInterface(label: "3", interfaceSize: 40, width: 92, height: 90, onTap: (value) => _updateNumber(value)),
-                                ButtonInterface(label: "+", interfaceSize: 40, width: 98, height: 70, onTap: (value) => _updateNumber(value)),
+                                ButtonInterface(label: " + ", interfaceSize: 40, width: 98, height: 70, onTap: (value) => _updateNumber(value)),
                               ],
                             ),
                             Row(
@@ -145,7 +168,7 @@ class _CalculatriceState extends State<Calculatrice> {
                                 ButtonInterface(label: ",", interfaceSize: 40, width: 92, height: 90, onTap: (value) => _updateNumber(value)),
                                 ButtonInterface(label: "0", interfaceSize: 40, width: 92, height: 90, onTap: (value) => _updateNumber(value)),
                                 ButtonInterface(label: "(  )", interfaceSize: 35, width: 92, height: 90, onTap: (value) => _updateNumber(value)),
-                                ButtonInterface(label: "=", interfaceSize: 40, width: 98, height: 70, onTap: (value) => _updateNumber(value)),
+                                ButtonInterface(label: "=", interfaceSize: 40, width: 98, height: 70, onTap: (value) => _operation()),
                               ],
                             )
                           ],
