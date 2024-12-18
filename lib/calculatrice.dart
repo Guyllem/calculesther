@@ -23,7 +23,7 @@ class _CalculatriceState extends State<Calculatrice> {
       }
     });
   }
-
+  /// Todo : delete les spaces inclus dans les op
   void _deleteLast(){
     setState(() {
       if (_currentTap.length == 1){
@@ -63,6 +63,21 @@ class _CalculatriceState extends State<Calculatrice> {
             result = tempMember;
           }else {
             result -= tempMember;
+          }
+        }
+        _currentTap = (result).toString();
+      }
+      if (_currentTap.contains("x")){
+        List<String> members = _currentTap.split(" x ");
+        for (int i = 0; i < members.length; i++) {
+          int tempMember = int.tryParse(members[i]) ?? 0;
+
+          if (tempMember == 0) {
+            result = 0;
+          } else if (result == 0){
+            result = tempMember;
+          } else {
+            result = result * tempMember;
           }
         }
         _currentTap = (result).toString();
@@ -141,7 +156,7 @@ class _CalculatriceState extends State<Calculatrice> {
                                 ButtonInterface(label: "7", interfaceSize: 40, width: 92, height: 90, onTap: (value) => _updateNumber(value)),
                                 ButtonInterface(label: "8", interfaceSize: 40, width: 92, height: 90, onTap: (value) => _updateNumber(value)),
                                 ButtonInterface(label: "9", interfaceSize: 40, width: 92, height: 90, onTap: (value) => _updateNumber(value)),
-                                ButtonInterface(label: "x", interfaceSize: 40, width: 98, height: 70, onTap: (value) => _updateNumber(value)),
+                                ButtonInterface(label: " x ", interfaceSize: 40, width: 98, height: 70, onTap: (value) => _updateNumber(value)),
                               ],
                             ),
                             Row(
