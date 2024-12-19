@@ -128,7 +128,7 @@ class _CalculatriceState extends State<Calculatrice> {
                             Row(
                               mainAxisAlignment: MainAxisAlignment.spaceAround,
                               children: [
-                                ButtonInterface(label: "", interfaceSize: 30, width: 98, height: 70,
+                                ButtonInterface(label: "", interfaceSize: 30, width: 98, height: 65,
                                     iconData: const Icon(Icons.favorite, color: AppColors.black,
                                       shadows: [Shadow(
                                           offset: Offset(0,0),
@@ -136,19 +136,21 @@ class _CalculatriceState extends State<Calculatrice> {
                                           color: AppColors.details)] ,
                                       size: 40),
                                     onTap: (value) => _updateNumber(value)),
-                                ButtonInterface(label: "ext", interfaceSize: 35, width: 98, height: 70, onTap: (value) => _updateNumber(value)),
-                                ButtonInterface(label: "AC", interfaceSize: 35, width: 98, height: 70, onTap: (value) => _clearUI()),
-                                ButtonInterface(label: "", interfaceSize: 30, width: 98, height: 70,
-                                    image: Image.asset('assets/icons/delete-arrow.png',color : AppColors.text, height: 50,  width: 50), onTap: (value) => _deleteLast()),
+                                ButtonInterface(label: "apres", interfaceSize: 15, width: 98, height: 65, onTap: (value) => _updateNumber(value)),
+                                ButtonInterface(label: "CA", interfaceSize: 35, width: 98, height: 65, onTap: (value) => _clearUI()),
+                                ButtonInterface(label: "", interfaceSize: 30, width: 98, height: 65,
+                                    image: Image.asset('assets/icons/delete-arrow.png',color : AppColors.text, height: 45,  width: 45), onTap: (value) => _deleteLast()),
+                                /// Todo : add a shadow behind image
                               ],
                             ),
                             Row(
                               mainAxisAlignment: MainAxisAlignment.spaceAround,
                               children: [
-                                ButtonInterface(label: "²", interfaceSize: 40, width: 98, height: 70, onTap: (value) => _updateNumber(value)),
-                                ButtonInterface(label: "racine", interfaceSize: 15, width: 98, height: 70, onTap: (value) => _updateNumber(value)),
-                                ButtonInterface(label: "^", interfaceSize: 40, width: 98, height: 70, onTap: (value) => _updateNumber(value)),
-                                ButtonInterface(label: "/", interfaceSize: 40, width: 98, height: 70, onTap: (value) => _updateNumber(value)),
+                                ButtonInterface(label: "x^", interfaceSize: 30, width: 98, height: 65, onTap: (value) => _updateNumber(value)),
+                                ButtonInterface(label: "", interfaceSize: 15, width: 98, height: 65,
+                                    image: Image.asset('assets/icons/square-root.png', color : AppColors.text, height: 35, width: 35) ,onTap: (value) => _updateNumber(value)),
+                                ButtonInterface(label: "10^", interfaceSize: 30, width: 98, height: 65, onTap: (value) => _updateNumber(value)),
+                                ButtonInterface(label: "/", interfaceSize: 40, width: 98, height: 65, onTap: (value) => _updateNumber(value)),
                               ],
                             ),
                             Row(
@@ -157,7 +159,7 @@ class _CalculatriceState extends State<Calculatrice> {
                                 ButtonInterface(label: "7", interfaceSize: 40, width: 92, height: 90, onTap: (value) => _updateNumber(value)),
                                 ButtonInterface(label: "8", interfaceSize: 40, width: 92, height: 90, onTap: (value) => _updateNumber(value)),
                                 ButtonInterface(label: "9", interfaceSize: 40, width: 92, height: 90, onTap: (value) => _updateNumber(value)),
-                                ButtonInterface(label: " x ", interfaceSize: 40, width: 98, height: 70, onTap: (value) => _updateNumber(value)),
+                                ButtonInterface(label: " x ", interfaceSize: 40, width: 98, height: 65, onTap: (value) => _updateNumber(value)),
                               ],
                             ),
                             Row(
@@ -166,7 +168,7 @@ class _CalculatriceState extends State<Calculatrice> {
                                 ButtonInterface(label: "4", interfaceSize: 40, width: 92, height: 90, onTap: (value) => _updateNumber(value)),
                                 ButtonInterface(label: "5", interfaceSize: 40, width: 92, height: 90, onTap: (value) => _updateNumber(value)),
                                 ButtonInterface(label: "6", interfaceSize: 40, width: 92, height: 90, onTap: (value) => _updateNumber(value)),
-                                ButtonInterface(label: " - ", interfaceSize: 40, width: 98, height: 70, onTap: (value) => _updateNumber(value)),
+                                ButtonInterface(label: " - ", interfaceSize: 40, width: 98, height: 65, onTap: (value) => _updateNumber(value)),
                               ],
                             ),
                             Row(
@@ -175,7 +177,7 @@ class _CalculatriceState extends State<Calculatrice> {
                                 ButtonInterface(label: "1", interfaceSize: 40, width: 92, height: 90, onTap: (value) => _updateNumber(value)),
                                 ButtonInterface(label: "2", interfaceSize: 40, width: 92, height: 90, onTap: (value) => _updateNumber(value)),
                                 ButtonInterface(label: "3", interfaceSize: 40, width: 92, height: 90, onTap: (value) => _updateNumber(value)),
-                                ButtonInterface(label: " + ", interfaceSize: 40, width: 98, height: 70, onTap: (value) => _updateNumber(value)),
+                                ButtonInterface(label: " + ", interfaceSize: 40, width: 98, height: 65, onTap: (value) => _updateNumber(value)),
                               ],
                             ),
                             Row(
@@ -184,7 +186,7 @@ class _CalculatriceState extends State<Calculatrice> {
                                 ButtonInterface(label: ",", interfaceSize: 40, width: 92, height: 90, onTap: (value) => _updateNumber(value)),
                                 ButtonInterface(label: "0", interfaceSize: 40, width: 92, height: 90, onTap: (value) => _updateNumber(value)),
                                 ButtonInterface(label: "(  )", interfaceSize: 35, width: 92, height: 90, onTap: (value) => _updateNumber(value)),
-                                ButtonInterface(label: "=", interfaceSize: 40, width: 98, height: 70, onTap: (value) => _operation()),
+                                ButtonInterface(label: "=", interfaceSize: 40, width: 98, height: 65, onTap: (value) => _operation()),
                               ],
                             )
                           ],
