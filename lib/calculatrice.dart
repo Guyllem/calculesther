@@ -18,7 +18,10 @@ class _CalculatriceState extends State<Calculatrice> {
     setState(() {
       if (_currentTap == "0"){
         _currentTap = number;
-      } else {
+      } else if ((_currentTap[_currentTap.length-1] != "+" || number != " + ") &&
+          (_currentTap[_currentTap.length-1] != "-" || number != " - ") &&
+          (_currentTap[_currentTap.length-1] != "x" || number != " x ") &&
+          (_currentTap[_currentTap.length-1] != "/" || number != " / ")){
         _currentTap = "$_currentTap$number";
       }
     });
@@ -29,6 +32,9 @@ class _CalculatriceState extends State<Calculatrice> {
       if (_currentTap.length == 1){
         _currentTap = "0";
       } else {
+        if (_currentTap[_currentTap.length] == " "){
+          _currentTap = _currentTap.substring(0, _currentTap.length - 3);
+        }
         _currentTap = _currentTap.substring(0, _currentTap.length - 1);
       }
     });
@@ -139,7 +145,8 @@ class _CalculatriceState extends State<Calculatrice> {
                                 ButtonInterface(label: "apres", interfaceSize: 15, width: 98, height: 65, onTap: (value) => _updateNumber(value)),
                                 ButtonInterface(label: "CA", interfaceSize: 35, width: 98, height: 65, onTap: (value) => _clearUI()),
                                 ButtonInterface(label: "", interfaceSize: 30, width: 98, height: 65,
-                                    image: Image.asset('assets/icons/delete-arrow.png',color : AppColors.text, height: 45,  width: 45), onTap: (value) => _deleteLast()),
+                                    image: Image.asset('assets/icons/delete-arrow.png',color : AppColors.text, height: 45,  width: 45),
+                                    onTap: (value) => _deleteLast()),
                                 /// Todo : add a shadow behind image
                               ],
                             ),
