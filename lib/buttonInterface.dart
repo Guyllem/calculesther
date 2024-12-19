@@ -6,9 +6,10 @@ class ButtonInterface extends StatelessWidget {
   final double interfaceSize;
   final double width;
   final double height;
+  final Image? image;
   final Widget? iconData;
   final Function(String) onTap;
-  const ButtonInterface({super.key, required this.label, required this.interfaceSize, required this.onTap, required this.width, required this.height, this.iconData});
+  const ButtonInterface({super.key, required this.label, required this.interfaceSize, required this.onTap, required this.width, required this.height, this.iconData, this.image});
 
   @override
   Widget build(BuildContext context) {
@@ -30,21 +31,23 @@ class ButtonInterface extends StatelessWidget {
                 borderRadius: BorderRadius.circular(25)
             )
         ),
-        label: Text(label,
-          style: TextStyle(
-            fontSize: interfaceSize,
-            color: AppColors.text,
-            shadows: const <Shadow> [
-              Shadow(
-                offset: Offset(0,0),
-                blurRadius: 10,
-                color: AppColors.details,
-              )
-            ],
-          ),
-        ),
+        label: image != null
+            ? image! :
+            Text(label,
+              style: TextStyle(
+                fontSize: interfaceSize,
+                color: AppColors.text,
+                shadows: const <Shadow> [
+                  Shadow(
+                    offset: Offset(0,0),
+                    blurRadius: 10,
+                    color: AppColors.details,
+                  )
+                ],
+              ),
+            ),
       )
-      );
+    );
   }
 }
 

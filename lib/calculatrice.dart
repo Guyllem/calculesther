@@ -138,7 +138,8 @@ class _CalculatriceState extends State<Calculatrice> {
                                     onTap: (value) => _updateNumber(value)),
                                 ButtonInterface(label: "ext", interfaceSize: 35, width: 98, height: 70, onTap: (value) => _updateNumber(value)),
                                 ButtonInterface(label: "AC", interfaceSize: 35, width: 98, height: 70, onTap: (value) => _clearUI()),
-                                ButtonInterface(label: "Del", interfaceSize: 30, width: 98, height: 70, onTap: (value) => _deleteLast()),
+                                ButtonInterface(label: "", interfaceSize: 30, width: 98, height: 70,
+                                    image: Image.asset('assets/icons/delete-arrow.png',color : AppColors.text, height: 50,  width: 50), onTap: (value) => _deleteLast()),
                               ],
                             ),
                             Row(
