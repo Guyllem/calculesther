@@ -13,7 +13,7 @@ class _CalculatriceState extends State<Calculatrice> {
 
   String _currentTap = "0";
 
-  /// TODO : fair eun blocage de spam de signe
+  /// TODO : patch le probleme add 2 signe d'affilé
   void _updateNumber(String number){
     setState(() {
       if (_currentTap == "0"){
@@ -26,16 +26,17 @@ class _CalculatriceState extends State<Calculatrice> {
       }
     });
   }
-  /// Todo : delete les spaces inclus dans les op
   void _deleteLast(){
     setState(() {
       if (_currentTap.length == 1){
         _currentTap = "0";
-      } else {
-        if (_currentTap[_currentTap.length] == " "){
-          _currentTap = _currentTap.substring(0, _currentTap.length - 3);
+      } else if (_currentTap[_currentTap.length-1] == " ") {
+        _currentTap = _currentTap.substring(0, _currentTap.length - 3);
+        if (_currentTap == ""){
+          _currentTap = "0";
         }
-        _currentTap = _currentTap.substring(0, _currentTap.length - 1);
+      } else {
+      _currentTap = _currentTap.substring(0, _currentTap.length - 1);
       }
     });
   }
