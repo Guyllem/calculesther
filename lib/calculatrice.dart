@@ -13,15 +13,24 @@ class _CalculatriceState extends State<Calculatrice> {
 
   String _currentTap = "0";
 
-  /// TODO : patch le probleme add 2 signe d'affilé
   void _updateNumber(String number){
     setState(() {
-      if (_currentTap == "0"){
+
+      /// Gestion du premier chiffre
+      if (number == "," && _currentTap.length == 1) {
+        _currentTap = "$_currentTap,";
+      } else if (_currentTap == "0") {
         _currentTap = number;
-      } else if ((_currentTap[_currentTap.length-1] != "+" || number != " + ") &&
-          (_currentTap[_currentTap.length-1] != "-" || number != " - ") &&
-          (_currentTap[_currentTap.length-1] != "x" || number != " x ") &&
-          (_currentTap[_currentTap.length-1] != "/" || number != " / ")){
+      }
+      /// Gestion de la virgule pour pas, dans le même membre
+
+      /// Gestion de non répétition de signe
+        else if (number == " + " && _currentTap[_currentTap.length-1] != " " ||
+          number == " - " && _currentTap[_currentTap.length-1] != " " ||
+          number == " x " && _currentTap[_currentTap.length-1] != " " ||
+          number == " / " && _currentTap[_currentTap.length-1] != " " ||
+          number == "," && _currentTap[_currentTap.length-1] != ","||
+      int.tryParse(number) != null){
         _currentTap = "$_currentTap$number";
       }
     });
