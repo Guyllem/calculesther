@@ -6,7 +6,7 @@ class ButtonInterface extends StatelessWidget {
   final double interfaceSize;
   final double width;
   final double height;
-  final Image? image;
+  final Widget? image;
   final Widget? iconData;
   final Function(String) onTap;
   const ButtonInterface({super.key, required this.label, required this.interfaceSize, required this.onTap, required this.width, required this.height, this.iconData, this.image});
@@ -26,7 +26,7 @@ class ButtonInterface extends StatelessWidget {
             backgroundColor:AppColors.black,
             shadowColor: AppColors.details,
             elevation: 10,
-            side: const BorderSide(color: AppColors.purple, width: 2),
+            side: const BorderSide(color: AppColors.purple, width: 3),
             shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(25)
             )
