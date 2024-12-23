@@ -2,6 +2,7 @@ import 'package:calculesther/buttonInterface.dart';
 import 'package:flutter/material.dart';
 import 'package:calculesther/theme/colors.dart';
 import 'package:simple_shadow/simple_shadow.dart';
+import 'utils.dart';
 
 class Calculatrice extends StatefulWidget {
   const Calculatrice({super.key});
@@ -13,6 +14,7 @@ class Calculatrice extends StatefulWidget {
 class _CalculatriceState extends State<Calculatrice> {
 
   String _currentTap = "0";
+  double? _result = 0;
 
   void _updateNumber(String number){
     setState(() {
@@ -36,6 +38,16 @@ class _CalculatriceState extends State<Calculatrice> {
       }
     });
   }
+
+  void _updateResult(double number){
+    if (_result == 0){
+      _result = number;
+    } else {
+      _result = _result! * 10 + number;
+    }
+  }
+
+
   void _deleteLast(){
     setState(() {
       if (_currentTap.length == 1){
@@ -48,57 +60,24 @@ class _CalculatriceState extends State<Calculatrice> {
       } else {
       _currentTap = _currentTap.substring(0, _currentTap.length - 1);
       }
+
+      if (_result != 0){
+
+      }
     });
   }
 
   void _clearUI(){
     setState(() {
       _currentTap = "0";
+      _result = 0;
     });
   }
 
+
   void _operation() {
     setState(() {
-      int result = 0;
-      if (_currentTap.contains("+")) {
-        List<String> members = _currentTap.split(" + ");
-        for (int i = 0; i < members.length; i++) {
-          int tempMember = int.tryParse(members[i]) ?? 0;
 
-          if (tempMember == 0) continue;
-          result += tempMember;
-        }
-        _currentTap = (result).toString();
-      }
-      if (_currentTap.contains("-")){
-        List<String> members = _currentTap.split(" - ");
-        for (int i = 0; i < members.length; i++) {
-          int tempMember = int.tryParse(members[i]) ?? 0;
-
-          if (tempMember == 0) continue;
-          if (result == 0){
-            result = tempMember;
-          }else {
-            result -= tempMember;
-          }
-        }
-        _currentTap = (result).toString();
-      }
-      if (_currentTap.contains("x")){
-        List<String> members = _currentTap.split(" x ");
-        for (int i = 0; i < members.length; i++) {
-          int tempMember = int.tryParse(members[i]) ?? 0;
-
-          if (tempMember == 0) {
-            result = 0;
-          } else if (result == 0){
-            result = tempMember;
-          } else {
-            result = result * tempMember;
-          }
-        }
-        _currentTap = (result).toString();
-      }
     });
   }
 
@@ -113,9 +92,9 @@ class _CalculatriceState extends State<Calculatrice> {
               color: AppColors.black,
               padding: const EdgeInsets.fromLTRB(0, 0, 25, 10),
               alignment: Alignment.bottomRight,
-              child: Text(_currentTap,
+              child: Text("${_result.toString()} | $_currentTap",
                 style: const TextStyle(
-                  fontSize: 90,
+                  fontSize: 50,
                     shadows: <Shadow> [
                       Shadow(
                         offset: Offset(2,2),
@@ -152,9 +131,9 @@ class _CalculatriceState extends State<Calculatrice> {
                                           blurRadius:  70,
                                           color: AppColors.details)] ,
                                       size: 40),
-                                    onTap: (value) => _updateNumber(value)),
-                                ButtonInterface(label: "apres", interfaceSize: 15, width: 98, height: 65, onTap: (value) => _updateNumber(value)),
-                                ButtonInterface(label: "CA", interfaceSize: 32, width: 98, height: 65, onTap: (value) => _clearUI()),
+                                    updateUI: (value) => _updateNumber(value)),
+                                ButtonInterface(label: "apres", interfaceSize: 15, width: 98, height: 65, updateUI: (value) => _updateNumber(value)),
+                                ButtonInterface(label: "CA", interfaceSize: 32, width: 98, height: 65, updateUI: (value) => _clearUI()),
                                 ButtonInterface(label: "", interfaceSize: 30, width: 98, height: 65,
                                     image: SimpleShadow(
                                       opacity: 0.7,
@@ -163,8 +142,7 @@ class _CalculatriceState extends State<Calculatrice> {
                                       sigma: 3,
                                       child: Image.asset('assets/icons/delete-arrow.png',color : AppColors.text, height: 45,  width: 45),
                                     ),
-                                    onTap: (value) => _deleteLast()),
-                                /// Todo : add a shadow behind image
+                                    updateUI: (value) => _deleteLast()),
                               ],
                             ),
                             Row(
@@ -179,7 +157,7 @@ class _CalculatriceState extends State<Calculatrice> {
                                       sigma: 3,
                                       child: Image.asset('assets/icons/power_x.png',color : AppColors.text, height: 50,  width: 55),
                                     ),
-                                    onTap: (value) => _updateNumber(value)),
+                                    updateUI: (value) => _updateNumber(value)),
                                 ButtonInterface(label: "", interfaceSize: 15, width: 98, height: 65,
                                     image:
                                     SimpleShadow(
@@ -189,9 +167,9 @@ class _CalculatriceState extends State<Calculatrice> {
                                       sigma: 3,
                                       child: Image.asset('assets/icons/square-root.png',color : AppColors.text, height: 35,  width: 35),
                                     ),
-                                    onTap: (value) => _updateNumber(value)),
-                                ButtonInterface(label: "10^", interfaceSize: 30, width: 98, height: 65, onTap: (value) => _updateNumber(value)),
-                                ButtonInterface(label: "", interfaceSize: 40, width: 98, height: 65,
+                                    updateUI: (value) => _updateNumber(value)),
+                                ButtonInterface(label: "10^", interfaceSize: 30, width: 98, height: 65, updateUI: (value) => _updateNumber(value)),
+                                ButtonInterface(label: " / ", interfaceSize: 40, width: 98, height: 65,
                                     image:
                                     SimpleShadow(
                                       opacity: 0.7,
@@ -200,16 +178,16 @@ class _CalculatriceState extends State<Calculatrice> {
                                       sigma: 3,
                                       child: Image.asset('assets/icons/divide.png',color : AppColors.text, height: 30,  width: 30),
                                     ),
-                                    onTap: (value) => _updateNumber(value)),
+                                    updateUI: (value) => _updateNumber(value)),
                               ],
                             ),
                             Row(
                               mainAxisAlignment: MainAxisAlignment.spaceAround,
                               children: [
-                                ButtonInterface(label: "7", interfaceSize: 40, width: 92, height: 90, onTap: (value) => _updateNumber(value)),
-                                ButtonInterface(label: "8", interfaceSize: 40, width: 92, height: 90, onTap: (value) => _updateNumber(value)),
-                                ButtonInterface(label: "9", interfaceSize: 40, width: 92, height: 90, onTap: (value) => _updateNumber(value)),
-                                ButtonInterface(label: "", interfaceSize: 40, width: 98, height: 65,
+                                ButtonInterface(label: "7", interfaceSize: 40, width: 92, height: 90, updateUI: (value) => _updateNumber(value), updateResult: (value) => _updateResult(value)),
+                                ButtonInterface(label: "8", interfaceSize: 40, width: 92, height: 90, updateUI: (value) => _updateNumber(value), updateResult: (value) => _updateResult(value)),
+                                ButtonInterface(label: "9", interfaceSize: 40, width: 92, height: 90, updateUI: (value) => _updateNumber(value), updateResult: (value) => _updateResult(value)),
+                                ButtonInterface(label: " x ", interfaceSize: 40, width: 98, height: 65,
                                     image:
                                     SimpleShadow(
                                       opacity: 0.7,
@@ -218,16 +196,16 @@ class _CalculatriceState extends State<Calculatrice> {
                                       sigma: 3,
                                       child: Image.asset('assets/icons/times.png',color : AppColors.text, height: 26,  width: 26),
                                     ),
-                                    onTap: (value) => _updateNumber(value)),
+                                    updateUI: (value) => _updateNumber(value)),
                               ],
                             ),
                             Row(
                               mainAxisAlignment: MainAxisAlignment.spaceAround,
                               children: [
-                                ButtonInterface(label: "4", interfaceSize: 40, width: 92, height: 90, onTap: (value) => _updateNumber(value)),
-                                ButtonInterface(label: "5", interfaceSize: 40, width: 92, height: 90, onTap: (value) => _updateNumber(value)),
-                                ButtonInterface(label: "6", interfaceSize: 40, width: 92, height: 90, onTap: (value) => _updateNumber(value)),
-                                ButtonInterface(label: "", interfaceSize: 40, width: 98, height: 65,
+                                ButtonInterface(label: "4", interfaceSize: 40, width: 92, height: 90, updateUI: (value) => _updateNumber(value), updateResult: (value) => _updateResult(value)),
+                                ButtonInterface(label: "5", interfaceSize: 40, width: 92, height: 90, updateUI: (value) => _updateNumber(value), updateResult: (value) => _updateResult(value)),
+                                ButtonInterface(label: "6", interfaceSize: 40, width: 92, height: 90, updateUI: (value) => _updateNumber(value), updateResult: (value) => _updateResult(value)),
+                                ButtonInterface(label: " - ", interfaceSize: 40, width: 98, height: 65,
                                     image:
                                     SimpleShadow(
                                       opacity: 0.7,
@@ -236,16 +214,16 @@ class _CalculatriceState extends State<Calculatrice> {
                                       sigma: 3,
                                       child: Image.asset('assets/icons/minus.png',color : AppColors.text, height: 30,  width: 35),
                                     ),
-                                    onTap: (value) => _updateNumber(value)),
+                                    updateUI: (value) => _updateNumber(value)),
                               ],
                             ),
                             Row(
                               mainAxisAlignment: MainAxisAlignment.spaceAround,
                               children: [
-                                ButtonInterface(label: "1", interfaceSize: 40, width: 92, height: 90, onTap: (value) => _updateNumber(value)),
-                                ButtonInterface(label: "2", interfaceSize: 40, width: 92, height: 90, onTap: (value) => _updateNumber(value)),
-                                ButtonInterface(label: "3", interfaceSize: 40, width: 92, height: 90, onTap: (value) => _updateNumber(value)),
-                                ButtonInterface(label: "", interfaceSize: 40, width: 98, height: 65,
+                                ButtonInterface(label: "1", interfaceSize: 40, width: 92, height: 90, updateUI: (value) => _updateNumber(value), updateResult: (value) => _updateResult(value)),
+                                ButtonInterface(label: "2", interfaceSize: 40, width: 92, height: 90, updateUI: (value) => _updateNumber(value), updateResult: (value) => _updateResult(value)),
+                                ButtonInterface(label: "3", interfaceSize: 40, width: 92, height: 90, updateUI: (value) => _updateNumber(value), updateResult: (value) => _updateResult(value)),
+                                ButtonInterface(label: " + ", interfaceSize: 40, width: 98, height: 65,
                                     image:
                                     SimpleShadow(
                                       opacity: 0.7,
@@ -254,25 +232,26 @@ class _CalculatriceState extends State<Calculatrice> {
                                       sigma: 3,
                                       child: Image.asset('assets/icons/plus.png',color : AppColors.text, height: 30,  width: 30),
                                     ),
-                                    onTap: (value) => _updateNumber(value)),
+                                  updateUI: (value) => _updateNumber(value),)
                               ],
                             ),
                             Row(
                               mainAxisAlignment: MainAxisAlignment.spaceAround,
                               children: [
-                                ButtonInterface(label: ",", interfaceSize: 40, width: 92, height: 90, onTap: (value) => _updateNumber(value)),
-                                ButtonInterface(label: "0", interfaceSize: 40, width: 92, height: 90, onTap: (value) => _updateNumber(value)),
-                                ButtonInterface(label: "(  )", interfaceSize: 35, width: 92, height: 90, onTap: (value) => _updateNumber(value)),
-                                ButtonInterface(label: "", interfaceSize: 40, width: 98, height: 65,
+                                ButtonInterface(label: ",", interfaceSize: 40, width: 92, height: 90, updateUI: (value) => _updateNumber(value)),
+                                ButtonInterface(label: "0", interfaceSize: 40, width: 92, height: 90, updateUI: (value) => _updateNumber(value), updateResult: (value) => _updateResult(value)),
+                                ButtonInterface(label: "(  )", interfaceSize: 35, width: 92, height: 90, updateUI: (value) => _updateNumber(value)),
+                                ButtonInterface(label: " = ", interfaceSize: 40, width: 98, height: 65,
                                     image:
                                     SimpleShadow(
                                       opacity: 0.7,
                                       color: AppColors.details,
                                       offset: const Offset(0,0),
                                       sigma: 3,
-                                      child: Image.asset('assets/icons/equal.png',color : AppColors.text, height: 32,  width: 32),
+                                      child: Image.asset('assets/icons/equal.png',color : AppColors.text, height: 30,  width: 30),
                                     ),
-                                    onTap: (value) => _operation()),
+                                  operation: () => _operation(),
+                                )
                               ],
                             )
                           ],

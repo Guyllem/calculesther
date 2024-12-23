@@ -8,8 +8,10 @@ class ButtonInterface extends StatelessWidget {
   final double height;
   final Widget? image;
   final Widget? iconData;
-  final Function(String) onTap;
-  const ButtonInterface({super.key, required this.label, required this.interfaceSize, required this.onTap, required this.width, required this.height, this.iconData, this.image});
+  final Function(String)? updateUI;
+  final Function(double)? updateResult;
+  final Function()? operation;
+  const ButtonInterface({super.key, required this.label, required this.interfaceSize, this.updateUI, required this.width, required this.height, this.iconData, this.image, this.updateResult, this.operation});
 
   @override
   Widget build(BuildContext context) {
@@ -18,7 +20,9 @@ class ButtonInterface extends StatelessWidget {
       height: height,
       child: ElevatedButton.icon(
         onPressed: () {
-          onTap(label);
+          updateUI!(label);
+          updateResult!(double.parse(label));
+          operation!();
         },
         icon: iconData,
         iconAlignment: IconAlignment.end,
