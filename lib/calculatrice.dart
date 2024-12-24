@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:calculesther/buttonInterface.dart';
 import 'package:flutter/material.dart';
 import 'package:calculesther/theme/colors.dart';
@@ -16,18 +18,19 @@ class _CalculatriceState extends State<Calculatrice> {
   String _currentTap = "0";
   double? _result = 0;
 
+  // Update UI
   void _updateNumber(String number){
     setState(() {
 
-      /// Gestion du premier chiffre
+      // Gestion du premier chiffre
       if (number == "," && _currentTap.length == 1) {
         _currentTap = "$_currentTap,";
       } else if (_currentTap == "0") {
         _currentTap = number;
       }
-      /// Gestion de la virgule pour pas, dans le même membre
+      //
 
-      /// Gestion de non répétition de signe
+      // Gestion de non répétition de signe
         else if (number == " + " && _currentTap[_currentTap.length-1] != " " ||
           number == " - " && _currentTap[_currentTap.length-1] != " " ||
           number == " x " && _currentTap[_currentTap.length-1] != " " ||
@@ -39,6 +42,7 @@ class _CalculatriceState extends State<Calculatrice> {
     });
   }
 
+  // Update Result
   void _updateResult(double number){
     if (_result == 0){
       _result = number;
@@ -75,9 +79,14 @@ class _CalculatriceState extends State<Calculatrice> {
   }
 
 
-  void _operation() {
+  void _operation(String operator) {
     setState(() {
-
+      if (operator == "."){
+        if (!_currentTap.contains('.')){
+          _currentTap += ".";
+          _result = _result! + 0.1;
+        }
+      }
     });
   }
 
@@ -238,7 +247,7 @@ class _CalculatriceState extends State<Calculatrice> {
                             Row(
                               mainAxisAlignment: MainAxisAlignment.spaceAround,
                               children: [
-                                ButtonInterface(label: ",", interfaceSize: 40, width: 92, height: 90, updateUI: (value) => _updateNumber(value)),
+                                ButtonInterface(label: ".", interfaceSize: 40, width: 92, height: 90, updateUI: (value) => _updateNumber(value), operation: (value) => _operation(value),),
                                 ButtonInterface(label: "0", interfaceSize: 40, width: 92, height: 90, updateUI: (value) => _updateNumber(value), updateResult: (value) => _updateResult(value)),
                                 ButtonInterface(label: "(  )", interfaceSize: 35, width: 92, height: 90, updateUI: (value) => _updateNumber(value)),
                                 ButtonInterface(label: " = ", interfaceSize: 40, width: 98, height: 65,
@@ -250,7 +259,6 @@ class _CalculatriceState extends State<Calculatrice> {
                                       sigma: 3,
                                       child: Image.asset('assets/icons/equal.png',color : AppColors.text, height: 30,  width: 30),
                                     ),
-                                  operation: () => _operation(),
                                 )
                               ],
                             )
