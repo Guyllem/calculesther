@@ -1,10 +1,8 @@
-import 'dart:developer';
-
 import 'package:calculesther/buttonInterface.dart';
 import 'package:flutter/material.dart';
 import 'package:calculesther/theme/colors.dart';
 import 'package:simple_shadow/simple_shadow.dart';
-import 'utils.dart';
+import 'package:math_expressions/math_expressions.dart';
 
 class Calculatrice extends StatefulWidget {
   const Calculatrice({super.key});
@@ -23,69 +21,82 @@ class _CalculatriceState extends State<Calculatrice> {
     setState(() {
 
       // Gestion du premier chiffre
-      if (number == "," && _currentTap.length == 1) {
-        _currentTap = "$_currentTap,";
+      if (number == "." && _currentTap.length == 1) {
+        _currentTap = "$_currentTap.";
       } else if (_currentTap == "0") {
         _currentTap = number;
       }
-      //
 
       // Gestion de non répétition de signe
         else if (number == " + " && _currentTap[_currentTap.length-1] != " " ||
           number == " - " && _currentTap[_currentTap.length-1] != " " ||
-          number == " x " && _currentTap[_currentTap.length-1] != " " ||
+          number == " * " && _currentTap[_currentTap.length-1] != " " ||
           number == " / " && _currentTap[_currentTap.length-1] != " " ||
-          number == "," && _currentTap[_currentTap.length-1] != ","||
+          number == "." && _currentTap[_currentTap.length-1] != "."||
       int.tryParse(number) != null){
         _currentTap = "$_currentTap$number";
       }
     });
   }
 
-  // Update Result
-  void _updateResult(double number){
-    if (_result == 0){
-      _result = number;
-    } else {
-      _result = _result! * 10 + number;
-    }
-  }
-
-
+  // When delete button is pressed
   void _deleteLast(){
     setState(() {
+
+      // Print 0 when last number is delete
       if (_currentTap.length == 1){
         _currentTap = "0";
-      } else if (_currentTap[_currentTap.length-1] == " ") {
+      }
+
+      // Take care of space between operator and number
+      else if (_currentTap[_currentTap.length-1] == " ") {
         _currentTap = _currentTap.substring(0, _currentTap.length - 3);
+
+        // Take care if the last entry is an operator
         if (_currentTap == ""){
           _currentTap = "0";
         }
+
       } else {
-      _currentTap = _currentTap.substring(0, _currentTap.length - 1);
-      }
-
-      if (_result != 0){
-
+        _currentTap = _currentTap.substring(0, _currentTap.length - 1);
       }
     });
   }
 
+  // When "CA" button (Clear All)
   void _clearUI(){
     setState(() {
+
+      // Reset the value of the UI print and result to 0
       _currentTap = "0";
       _result = 0;
+
     });
   }
 
-
-  void _operation(String operator) {
+  // When equal button is pressed
+  void _operation() {
     setState(() {
-      if (operator == "."){
-        if (!_currentTap.contains('.')){
-          _currentTap += ".";
-          _result = _result! + 0.1;
+
+      // Calculates the expression with math_expressions package
+      try {
+        Parser parser = Parser();
+        Expression expression = parser.parse(_currentTap);
+        ContextModel cm = ContextModel();
+
+        _result = expression.evaluate(EvaluationType.REAL, cm);
+
+        // Show integer when the number it is
+        if (_result == _result!.toInt()){
+          _currentTap = _result!.toInt().toString();
+        } else {
+          _currentTap = _result.toString();
         }
+
+      // Catch error, when the parser return exception
+      } catch (e){
+        _result = 0;
+        _currentTap = "0";
       }
     });
   }
@@ -141,7 +152,7 @@ class _CalculatriceState extends State<Calculatrice> {
                                           color: AppColors.details)] ,
                                       size: 40),
                                     updateUI: (value) => _updateNumber(value)),
-                                ButtonInterface(label: "apres", interfaceSize: 15, width: 98, height: 65, updateUI: (value) => _updateNumber(value)),
+                                const ButtonInterface(label: "apres", interfaceSize: 15, width: 98, height: 65),
                                 ButtonInterface(label: "CA", interfaceSize: 32, width: 98, height: 65, updateUI: (value) => _clearUI()),
                                 ButtonInterface(label: "", interfaceSize: 30, width: 98, height: 65,
                                     image: SimpleShadow(
@@ -193,10 +204,10 @@ class _CalculatriceState extends State<Calculatrice> {
                             Row(
                               mainAxisAlignment: MainAxisAlignment.spaceAround,
                               children: [
-                                ButtonInterface(label: "7", interfaceSize: 40, width: 92, height: 90, updateUI: (value) => _updateNumber(value), updateResult: (value) => _updateResult(value)),
-                                ButtonInterface(label: "8", interfaceSize: 40, width: 92, height: 90, updateUI: (value) => _updateNumber(value), updateResult: (value) => _updateResult(value)),
-                                ButtonInterface(label: "9", interfaceSize: 40, width: 92, height: 90, updateUI: (value) => _updateNumber(value), updateResult: (value) => _updateResult(value)),
-                                ButtonInterface(label: " x ", interfaceSize: 40, width: 98, height: 65,
+                                ButtonInterface(label: "7", interfaceSize: 40, width: 92, height: 90, updateUI: (value) => _updateNumber(value)),
+                                ButtonInterface(label: "8", interfaceSize: 40, width: 92, height: 90, updateUI: (value) => _updateNumber(value)),
+                                ButtonInterface(label: "9", interfaceSize: 40, width: 92, height: 90, updateUI: (value) => _updateNumber(value)),
+                                ButtonInterface(label: " * ", interfaceSize: 40, width: 98, height: 65,
                                     image:
                                     SimpleShadow(
                                       opacity: 0.7,
@@ -211,9 +222,9 @@ class _CalculatriceState extends State<Calculatrice> {
                             Row(
                               mainAxisAlignment: MainAxisAlignment.spaceAround,
                               children: [
-                                ButtonInterface(label: "4", interfaceSize: 40, width: 92, height: 90, updateUI: (value) => _updateNumber(value), updateResult: (value) => _updateResult(value)),
-                                ButtonInterface(label: "5", interfaceSize: 40, width: 92, height: 90, updateUI: (value) => _updateNumber(value), updateResult: (value) => _updateResult(value)),
-                                ButtonInterface(label: "6", interfaceSize: 40, width: 92, height: 90, updateUI: (value) => _updateNumber(value), updateResult: (value) => _updateResult(value)),
+                                ButtonInterface(label: "4", interfaceSize: 40, width: 92, height: 90, updateUI: (value) => _updateNumber(value)),
+                                ButtonInterface(label: "5", interfaceSize: 40, width: 92, height: 90, updateUI: (value) => _updateNumber(value)),
+                                ButtonInterface(label: "6", interfaceSize: 40, width: 92, height: 90, updateUI: (value) => _updateNumber(value)),
                                 ButtonInterface(label: " - ", interfaceSize: 40, width: 98, height: 65,
                                     image:
                                     SimpleShadow(
@@ -229,9 +240,9 @@ class _CalculatriceState extends State<Calculatrice> {
                             Row(
                               mainAxisAlignment: MainAxisAlignment.spaceAround,
                               children: [
-                                ButtonInterface(label: "1", interfaceSize: 40, width: 92, height: 90, updateUI: (value) => _updateNumber(value), updateResult: (value) => _updateResult(value)),
-                                ButtonInterface(label: "2", interfaceSize: 40, width: 92, height: 90, updateUI: (value) => _updateNumber(value), updateResult: (value) => _updateResult(value)),
-                                ButtonInterface(label: "3", interfaceSize: 40, width: 92, height: 90, updateUI: (value) => _updateNumber(value), updateResult: (value) => _updateResult(value)),
+                                ButtonInterface(label: "1", interfaceSize: 40, width: 92, height: 90, updateUI: (value) => _updateNumber(value)),
+                                ButtonInterface(label: "2", interfaceSize: 40, width: 92, height: 90, updateUI: (value) => _updateNumber(value)),
+                                ButtonInterface(label: "3", interfaceSize: 40, width: 92, height: 90, updateUI: (value) => _updateNumber(value)),
                                 ButtonInterface(label: " + ", interfaceSize: 40, width: 98, height: 65,
                                     image:
                                     SimpleShadow(
@@ -247,8 +258,8 @@ class _CalculatriceState extends State<Calculatrice> {
                             Row(
                               mainAxisAlignment: MainAxisAlignment.spaceAround,
                               children: [
-                                ButtonInterface(label: ".", interfaceSize: 40, width: 92, height: 90, updateUI: (value) => _updateNumber(value), operation: (value) => _operation(value),),
-                                ButtonInterface(label: "0", interfaceSize: 40, width: 92, height: 90, updateUI: (value) => _updateNumber(value), updateResult: (value) => _updateResult(value)),
+                                ButtonInterface(label: ".", interfaceSize: 40, width: 92, height: 90, updateUI: (value) => _updateNumber(value)),
+                                ButtonInterface(label: "0", interfaceSize: 40, width: 92, height: 90, updateUI: (value) => _updateNumber(value)),
                                 ButtonInterface(label: "(  )", interfaceSize: 35, width: 92, height: 90, updateUI: (value) => _updateNumber(value)),
                                 ButtonInterface(label: " = ", interfaceSize: 40, width: 98, height: 65,
                                     image:
@@ -259,6 +270,7 @@ class _CalculatriceState extends State<Calculatrice> {
                                       sigma: 3,
                                       child: Image.asset('assets/icons/equal.png',color : AppColors.text, height: 30,  width: 30),
                                     ),
+                                  operation: () => _operation(),
                                 )
                               ],
                             )
