@@ -20,20 +20,31 @@ class _CalculatriceState extends State<Calculatrice> {
   void _updateNumber(String number){
     setState(() {
 
-      // Gestion du premier chiffre
+      // First digit management
       if (number == "." && _currentTap.length == 1) {
         _currentTap = "$_currentTap.";
+      } else if ((number == " + " || number == " * " || number == " / ") && _currentTap == "0"){
+        _currentTap = "0";
+      } else if (number == " - "  && _currentTap == "0"){
+        _currentTap = "-";
       } else if (_currentTap == "0") {
         _currentTap = number;
       }
 
-      // Gestion de non répétition de signe
-        else if (number == " + " && _currentTap[_currentTap.length-1] != " " ||
-          number == " - " && _currentTap[_currentTap.length-1] != " " ||
-          number == " * " && _currentTap[_currentTap.length-1] != " " ||
-          number == " / " && _currentTap[_currentTap.length-1] != " " ||
-          number == "." && _currentTap[_currentTap.length-1] != "."||
-      int.tryParse(number) != null){
+      // TODO : Faire gestion de la virgule en double dans un membre
+
+      // Good position for minus after a specific operator
+      else if (number == " - " && _currentTap.length >= 2 && (_currentTap[_currentTap.length - 1] == "(" || _currentTap[_currentTap.length-2] == "*" || _currentTap[_currentTap.length-2] == "/"  || _currentTap[_currentTap.length-2] == "+")){
+        _currentTap = "$_currentTap-";
+      }
+
+      // Non-recurrence of sign
+        else if ((number == " + " && _currentTap[_currentTap.length-1] != " " && _currentTap[_currentTap.length-1] != "." && _currentTap[_currentTap.length-1] != "-" ) ||
+          (number == " - " && _currentTap[_currentTap.length-1] != " " && _currentTap[_currentTap.length-1] != "." && _currentTap[_currentTap.length-1] != "-" ) ||
+          (number == " * " && _currentTap[_currentTap.length-1] != " " && _currentTap[_currentTap.length-1] != "."  && _currentTap[_currentTap.length-1] != "-") ||
+          (number == " / " && _currentTap[_currentTap.length-1] != " " && _currentTap[_currentTap.length-1] != "." && _currentTap[_currentTap.length-1] != "-") ||
+          (number == "." && _currentTap[_currentTap.length-1] != " " && _currentTap[_currentTap.length-1] != "." && _currentTap[_currentTap.length-1] != "-") ||
+          (int.tryParse(number) != null)){
         _currentTap = "$_currentTap$number";
       }
     });
@@ -63,7 +74,7 @@ class _CalculatriceState extends State<Calculatrice> {
     });
   }
 
-  // When "CA" button (Clear All)
+  // When "CA" button pressed (Clear All)
   void _clearUI(){
     setState(() {
 
@@ -258,9 +269,9 @@ class _CalculatriceState extends State<Calculatrice> {
                             Row(
                               mainAxisAlignment: MainAxisAlignment.spaceAround,
                               children: [
-                                ButtonInterface(label: ".", interfaceSize: 40, width: 92, height: 90, updateUI: (value) => _updateNumber(value)),
+                                ButtonInterface(label: ".", interfaceSize: 50, width: 92, height: 90, updateUI: (value) => _updateNumber(value)),
                                 ButtonInterface(label: "0", interfaceSize: 40, width: 92, height: 90, updateUI: (value) => _updateNumber(value)),
-                                ButtonInterface(label: "(  )", interfaceSize: 35, width: 92, height: 90, updateUI: (value) => _updateNumber(value)),
+                                ButtonInterface(label: "(", interfaceSize: 35, width: 92, height: 90, updateUI: (value) => _updateNumber(value)),
                                 ButtonInterface(label: " = ", interfaceSize: 40, width: 98, height: 65,
                                     image:
                                     SimpleShadow(
