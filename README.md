@@ -1,48 +1,40 @@
-# 🖤💜 Caculesther 💜🖤
+# 🖤💜 Calculesther 💜🖤
+
+## 🚧 Project Status
+
+This project is **not yet complete** and is currently under development. Final updates and features are still being worked on.
+
+---
 
 ## ✨ Description
 
-**Caculesther** est une application de calculatrice moderne et originale, développée avec **Dart** et **Flutter**. 
-Son interface combine les fonctionnalités classiques d’une calculatrice avec un twist unique : un bouton « surprise » qui affiche des **messages mignons** ou des **dessins adorables** pour apporter un peu de bonheur. 💌
+**Calculesther** is an original calculator application, developed using **Dart** and **Flutter**.  
+Its interface combines the classic functionality of a calculator with a unique twist: a "surprise" button that displays **cute messages** or **adorable drawings** to bring a little joy to my gf. 💌  
 
-Cette application arbore un **thème néon noir et violet**, soigneusement choisi par ma copine, pour une esthétique élégante et lumineuse. ✨
+The app features a **black and purple neon theme**, carefully chosen by my girlfriend. ✨  
 
-> **Note** : Cette application a été spécialement conçue pour ma copine, afin de lui offrir une expérience unique et personnelle. 💖
-
----
-
-## 🌟 Fonctionnalités
-
-- 🧮 **Calculatrice classique** : toutes les opérations standards (addition, soustraction, multiplication, division).
-- 🎁 **Bouton surprise** :
-  - Affiche des **messages mignons** ou des **dessins adorables** pour illuminer votre journée. 🥰
-  - Conçu pour créer un moment spécial et ajouter une touche de personnalisation à l’application.
-- 🌌 **Thème néon noir et violet** : interface moderne et attrayante, inspirée d'un style néon.
+> **Note**: This application was specially designed for my girlfriend to provide her with a unique and personal experience. Only avaible for her and on upload, no deployement on stores 💖  
 
 ---
 
-## 🖼 Aperçu de l’interface
+## 🌟 Features
 
-*(Ajoute ici des captures d’écran de l’application, mettant en avant le design néon et la fonctionnalité du bouton surprise.)*
-
----
-
-## 🛠 Technologies utilisées
-
-- **Dart** : pour le développement de la logique de l’application.
-- **Flutter** : pour une interface utilisateur réactive et esthétique.
+- 🧮 **Classic Calculator**: All standard operations (addition, subtraction, multiplication, division and a bit more).  
+- 🎁 **Surprise Button**:  
+  - Displays **cute messages** or **adorable drawings** to brighten your day. 🥰  
+  - Designed to create a special moment and add a personal touch to the app.  
 
 ---
 
+## 🛠 Technologies Used  
 
-## 💖 Remerciements
-
-Un grand merci à ma copine de ma vie, qui est toujours là pour moi et qui m'aime très fort. 💜
+- **Dart**: For developing the app's logic.  
+- **Flutter**: For a responsive and visually appealing user interface.
 
 ---
 
+## 🖼 Interface Preview  
 
-## ⚠️ Note
+*Comming soon ...*  
 
-Cette application n’est pas destinée à être déployée sur les stores. Elle est uniquement disponible pour téléchargement et installation directe.
 
