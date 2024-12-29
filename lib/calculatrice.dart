@@ -21,8 +21,12 @@ class _CalculatriceState extends State<Calculatrice> {
     setState(() {
 
       // First digit management
-      if (number == "." && _currentTap.length == 1) {
-        _currentTap = "$_currentTap.";
+      if (number == "." && (_currentTap == "0" || _currentTap[_currentTap.length-1] == " " || _currentTap[_currentTap.length-1] == "-")) {
+        if (_currentTap == "0"){
+          _currentTap = "$_currentTap.";
+        } else {
+          _currentTap = "${_currentTap}0.";
+        }
       } else if ((number == " + " || number == " * " || number == " / ") && _currentTap == "0"){
         _currentTap = "0";
       } else if (number == " - "  && _currentTap == "0"){
@@ -31,19 +35,40 @@ class _CalculatriceState extends State<Calculatrice> {
         _currentTap = number;
       }
 
-      // TODO : Faire gestion de la virgule en double dans un membre
-
       // Good position for minus after a specific operator
       else if (number == " - " && _currentTap.length >= 2 && (_currentTap[_currentTap.length - 1] == "(" || _currentTap[_currentTap.length-2] == "*" || _currentTap[_currentTap.length-2] == "/"  || _currentTap[_currentTap.length-2] == "+")){
         _currentTap = "$_currentTap-";
       }
+
+      // Comma management
+      else if (number == "." && _currentTap[_currentTap.length-1] != "."){
+        bool isComaInMember = false;
+        for (int i = _currentTap.length - 1; i >= 0; i--){
+
+          // If already a comma in the member return true and block the add of a new comma
+          if (_currentTap[i] == "."){
+            isComaInMember = true;
+            break;
+          }
+
+          // If space detected quit the loop without doing anything and verify if before the space we have a comma
+          if (_currentTap[i] == " "){
+            break;
+          }
+        }
+
+        // No comma in the member --> add comma
+        if (!isComaInMember){
+          _currentTap = "$_currentTap$number";
+        }
+      }
+
 
       // Non-recurrence of sign
         else if ((number == " + " && _currentTap[_currentTap.length-1] != " " && _currentTap[_currentTap.length-1] != "." && _currentTap[_currentTap.length-1] != "-" ) ||
           (number == " - " && _currentTap[_currentTap.length-1] != " " && _currentTap[_currentTap.length-1] != "." && _currentTap[_currentTap.length-1] != "-" ) ||
           (number == " * " && _currentTap[_currentTap.length-1] != " " && _currentTap[_currentTap.length-1] != "."  && _currentTap[_currentTap.length-1] != "-") ||
           (number == " / " && _currentTap[_currentTap.length-1] != " " && _currentTap[_currentTap.length-1] != "." && _currentTap[_currentTap.length-1] != "-") ||
-          (number == "." && _currentTap[_currentTap.length-1] != " " && _currentTap[_currentTap.length-1] != "." && _currentTap[_currentTap.length-1] != "-") ||
           (int.tryParse(number) != null)){
         _currentTap = "$_currentTap$number";
       }
@@ -101,10 +126,16 @@ class _CalculatriceState extends State<Calculatrice> {
         if (_result == _result!.toInt()){
           _currentTap = _result!.toInt().toString();
         } else {
-          _currentTap = _result.toString();
+          _currentTap = _result!.toStringAsFixed(5);
+
+          // If the result is under 5 decimal
+          while(_currentTap.contains(".") && _currentTap.endsWith("0")){
+            _currentTap = _currentTap.substring(0, _currentTap.length - 1);
+          }
         }
 
       // Catch error, when the parser return exception
+        // TODO : catch error divided by 0
       } catch (e){
         _result = 0;
         _currentTap = "0";
