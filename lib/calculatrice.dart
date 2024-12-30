@@ -63,12 +63,17 @@ class _CalculatriceState extends State<Calculatrice> {
         }
       }
 
+      // Parenthesis management
+
+
 
       // Non-recurrence of sign
-        else if ((number == " + " && _currentTap[_currentTap.length-1] != " " && _currentTap[_currentTap.length-1] != "." && _currentTap[_currentTap.length-1] != "-" ) ||
-          (number == " - " && _currentTap[_currentTap.length-1] != " " && _currentTap[_currentTap.length-1] != "." && _currentTap[_currentTap.length-1] != "-" ) ||
-          (number == " * " && _currentTap[_currentTap.length-1] != " " && _currentTap[_currentTap.length-1] != "."  && _currentTap[_currentTap.length-1] != "-") ||
-          (number == " / " && _currentTap[_currentTap.length-1] != " " && _currentTap[_currentTap.length-1] != "." && _currentTap[_currentTap.length-1] != "-") ||
+        else if ((number == " + " && _currentTap[_currentTap.length-1] != " " && _currentTap[_currentTap.length-1] != "." && _currentTap[_currentTap.length-1] != "-" && _currentTap[_currentTap.length-1] != "(") ||
+          (number == " - " && _currentTap[_currentTap.length-1] != " " && _currentTap[_currentTap.length-1] != "." && _currentTap[_currentTap.length-1] != "-" && _currentTap[_currentTap.length-1] != "(") ||
+          (number == " * " && _currentTap[_currentTap.length-1] != " " && _currentTap[_currentTap.length-1] != "."  && _currentTap[_currentTap.length-1] != "-" && _currentTap[_currentTap.length-1] != "(") ||
+          (number == " / " && _currentTap[_currentTap.length-1] != " " && _currentTap[_currentTap.length-1] != "." && _currentTap[_currentTap.length-1] != "-" && _currentTap[_currentTap.length-1] != "(") ||
+          (number == "(" && _currentTap[_currentTap.length-1] != ".") ||
+          (number == ")" && _currentTap[_currentTap.length-1] != "." && _currentTap[_currentTap.length-1] != " ") ||
           (int.tryParse(number) != null)){
         _currentTap = "$_currentTap$number";
       }
@@ -187,30 +192,6 @@ class _CalculatriceState extends State<Calculatrice> {
                               mainAxisAlignment: MainAxisAlignment.spaceAround,
                               children: [
                                 ButtonInterface(label: "", interfaceSize: 30, width: 98, height: 65,
-                                    iconData: const Icon(Icons.favorite, color: AppColors.black,
-                                      shadows: [Shadow(
-                                          offset: Offset(0,0),
-                                          blurRadius:  70,
-                                          color: AppColors.details)] ,
-                                      size: 40),
-                                    updateUI: (value) => _updateNumber(value)),
-                                const ButtonInterface(label: "apres", interfaceSize: 15, width: 98, height: 65),
-                                ButtonInterface(label: "CA", interfaceSize: 32, width: 98, height: 65, updateUI: (value) => _clearUI()),
-                                ButtonInterface(label: "", interfaceSize: 30, width: 98, height: 65,
-                                    image: SimpleShadow(
-                                      opacity: 0.7,
-                                      color: AppColors.details,
-                                      offset: const Offset(0,0),
-                                      sigma: 3,
-                                      child: Image.asset('assets/icons/delete-arrow.png',color : AppColors.text, height: 45,  width: 45),
-                                    ),
-                                    updateUI: (value) => _deleteLast()),
-                              ],
-                            ),
-                            Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceAround,
-                              children: [
-                                ButtonInterface(label: "", interfaceSize: 30, width: 98, height: 65,
                                     image:
                                     SimpleShadow(
                                       opacity: 0.7,
@@ -230,7 +211,24 @@ class _CalculatriceState extends State<Calculatrice> {
                                       child: Image.asset('assets/icons/square-root.png',color : AppColors.text, height: 35,  width: 35),
                                     ),
                                     updateUI: (value) => _updateNumber(value)),
+                                ButtonInterface(label: "CA", interfaceSize: 32, width: 98, height: 65, updateUI: (value) => _clearUI()),
+                                ButtonInterface(label: "", interfaceSize: 30, width: 98, height: 65,
+                                    image: SimpleShadow(
+                                      opacity: 0.7,
+                                      color: AppColors.details,
+                                      offset: const Offset(0,0),
+                                      sigma: 3,
+                                      child: Image.asset('assets/icons/delete-arrow.png',color : AppColors.text, height: 45,  width: 45),
+                                    ),
+                                    updateUI: (value) => _deleteLast()),
+                              ],
+                            ),
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceAround,
+                              children: [
                                 ButtonInterface(label: "10^", interfaceSize: 30, width: 98, height: 65, updateUI: (value) => _updateNumber(value)),
+                                ButtonInterface(label: "(", interfaceSize: 27, width: 98, height: 65, updateUI: (value) => _updateNumber(value)),
+                                ButtonInterface(label: ")", interfaceSize: 27, width: 98, height: 65, updateUI: (value) => _updateNumber(value)),
                                 ButtonInterface(label: " / ", interfaceSize: 40, width: 98, height: 65,
                                     image:
                                     SimpleShadow(
@@ -302,7 +300,14 @@ class _CalculatriceState extends State<Calculatrice> {
                               children: [
                                 ButtonInterface(label: ".", interfaceSize: 50, width: 92, height: 90, updateUI: (value) => _updateNumber(value)),
                                 ButtonInterface(label: "0", interfaceSize: 40, width: 92, height: 90, updateUI: (value) => _updateNumber(value)),
-                                ButtonInterface(label: "(", interfaceSize: 35, width: 92, height: 90, updateUI: (value) => _updateNumber(value)),
+                                ButtonInterface(label: "", interfaceSize: 30, width: 98, height: 90,
+                                    iconData: const Icon(Icons.favorite, color: AppColors.black,
+                                        shadows: [Shadow(
+                                            offset: Offset(0,0),
+                                            blurRadius:  70,
+                                            color: AppColors.details)] ,
+                                        size: 40),
+                                    updateUI: (value) => _updateNumber(value)),
                                 ButtonInterface(label: " = ", interfaceSize: 40, width: 98, height: 65,
                                     image:
                                     SimpleShadow(
