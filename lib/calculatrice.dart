@@ -27,7 +27,9 @@ class _CalculatriceState extends State<Calculatrice> {
         } else {
           _currentTap = "${_currentTap}0.";
         }
-      } else if ((number == " + " || number == " * " || number == " / ") && _currentTap == "0"){
+
+      // Can't add at the start
+      } else if ((number == " + " || number == " * " || number == " / " || number == "^" || number == ")") && _currentTap == "0"){
         _currentTap = "0";
       } else if (number == " - "  && _currentTap == "0"){
         _currentTap = "-";
@@ -36,7 +38,7 @@ class _CalculatriceState extends State<Calculatrice> {
       }
 
       // Good position for minus after a specific operator
-      else if (number == " - " && _currentTap.length >= 2 && (_currentTap[_currentTap.length - 1] == "(" || _currentTap[_currentTap.length-2] == "*" || _currentTap[_currentTap.length-2] == "/"  || _currentTap[_currentTap.length-2] == "+")){
+      else if (number == " - " && _currentTap.length >= 2 && (_currentTap[_currentTap.length - 1] == "(" || _currentTap[_currentTap.length-1] == "^" || _currentTap[_currentTap.length-2] == "*" || _currentTap[_currentTap.length-2] == "/"  || _currentTap[_currentTap.length-2] == "+")){
         _currentTap = "$_currentTap-";
       }
 
@@ -73,13 +75,34 @@ class _CalculatriceState extends State<Calculatrice> {
         }
       }
 
+      // Close Parenthesis management
+      else if (number == ")" && _currentTap[_currentTap.length-1] != " " && _currentTap[_currentTap.length-1] != "."){
+        int countParenthesisOpen = 0;
+        int countParenthesisClose = 0;
+        for (int i = 0; i < _currentTap.length; i++){
+          if (_currentTap[i] == "("){
+            countParenthesisOpen++;
+          }
+          if (_currentTap[i] == ")"){
+            countParenthesisClose++;
+          }
+        }
+        if (countParenthesisOpen > countParenthesisClose){
+          _currentTap = "$_currentTap$number";
+        }
+      }
+
+      // Power management
+      else if (number == "^" && (_currentTap[_currentTap.length-1] == ")" || int.tryParse(_currentTap[_currentTap.length-1]) != null)){
+        _currentTap = "$_currentTap$number";
+      }
+
       // Non-recurrence of sign
-        else if ((number == " + " && _currentTap[_currentTap.length-1] != " " && _currentTap[_currentTap.length-1] != "." && _currentTap[_currentTap.length-1] != "-" && _currentTap[_currentTap.length-1] != "(") ||
-          (number == " - " && _currentTap[_currentTap.length-1] != " " && _currentTap[_currentTap.length-1] != "." && _currentTap[_currentTap.length-1] != "-" && _currentTap[_currentTap.length-1] != "(") ||
-          (number == " * " && _currentTap[_currentTap.length-1] != " " && _currentTap[_currentTap.length-1] != "."  && _currentTap[_currentTap.length-1] != "-" && _currentTap[_currentTap.length-1] != "(") ||
-          (number == " / " && _currentTap[_currentTap.length-1] != " " && _currentTap[_currentTap.length-1] != "." && _currentTap[_currentTap.length-1] != "-" && _currentTap[_currentTap.length-1] != "(") ||
-          (number == "(" && _currentTap[_currentTap.length-1] == " " &&_currentTap[_currentTap.length-1] != ".") ||
-          (number == ")" && _currentTap[_currentTap.length-1] != " " && _currentTap[_currentTap.length-1] != ".") ||
+        else if ((number == " + " && _currentTap[_currentTap.length-1] != " " && _currentTap[_currentTap.length-1] != "." && _currentTap[_currentTap.length-1] != "-" && _currentTap[_currentTap.length-1] != "(" && _currentTap[_currentTap.length-1] != "^") ||
+          (number == " - " && _currentTap[_currentTap.length-1] != " " && _currentTap[_currentTap.length-1] != "." && _currentTap[_currentTap.length-1] != "-") ||
+          (number == " * " && _currentTap[_currentTap.length-1] != " " && _currentTap[_currentTap.length-1] != "."  && _currentTap[_currentTap.length-1] != "-" && _currentTap[_currentTap.length-1] != "(" && _currentTap[_currentTap.length-1] != "^") ||
+          (number == " / " && _currentTap[_currentTap.length-1] != " " && _currentTap[_currentTap.length-1] != "." && _currentTap[_currentTap.length-1] != "-" && _currentTap[_currentTap.length-1] != "(" && _currentTap[_currentTap.length-1] != "^") ||
+          (number == "(" && (_currentTap[_currentTap.length-1] == " " || _currentTap[_currentTap.length-1] == "-") &&_currentTap[_currentTap.length-1] != ".") ||
           (int.tryParse(number) != null)){
         _currentTap = "$_currentTap$number";
       }
@@ -104,7 +127,17 @@ class _CalculatriceState extends State<Calculatrice> {
           _currentTap = "0";
         }
 
-      } else {
+      // Take care of 10 power
+      } else if (_currentTap[_currentTap.length-1] == "^" && _currentTap[_currentTap.length-2] == "0" && _currentTap[_currentTap.length-3] == "1" ){
+        _currentTap = _currentTap.substring(0, _currentTap.length - 3);
+
+        // Take care if the last entry is an operator
+        if (_currentTap == ""){
+          _currentTap = "0";
+        }
+      }
+
+      else {
         _currentTap = _currentTap.substring(0, _currentTap.length - 1);
       }
     });
@@ -202,7 +235,7 @@ class _CalculatriceState extends State<Calculatrice> {
                             Row(
                               mainAxisAlignment: MainAxisAlignment.spaceAround,
                               children: [
-                                ButtonInterface(label: "", interfaceSize: 30, width: 98, height: 65,
+                                ButtonInterface(label: "^", interfaceSize: 30, width: 98, height: 65,
                                     image:
                                     SimpleShadow(
                                       opacity: 0.7,
