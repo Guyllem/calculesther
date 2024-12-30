@@ -63,17 +63,23 @@ class _CalculatriceState extends State<Calculatrice> {
         }
       }
 
-      // Parenthesis management
-
-
+      // 10 power management
+      else if (number == "10^"){
+        if (int.tryParse(_currentTap[_currentTap.length-1]) != null){
+          _currentTap = "$_currentTap * 10^";
+        }
+        else if (_currentTap[_currentTap.length-2] == "*"){
+          _currentTap = "$_currentTap$number";
+        }
+      }
 
       // Non-recurrence of sign
         else if ((number == " + " && _currentTap[_currentTap.length-1] != " " && _currentTap[_currentTap.length-1] != "." && _currentTap[_currentTap.length-1] != "-" && _currentTap[_currentTap.length-1] != "(") ||
           (number == " - " && _currentTap[_currentTap.length-1] != " " && _currentTap[_currentTap.length-1] != "." && _currentTap[_currentTap.length-1] != "-" && _currentTap[_currentTap.length-1] != "(") ||
           (number == " * " && _currentTap[_currentTap.length-1] != " " && _currentTap[_currentTap.length-1] != "."  && _currentTap[_currentTap.length-1] != "-" && _currentTap[_currentTap.length-1] != "(") ||
           (number == " / " && _currentTap[_currentTap.length-1] != " " && _currentTap[_currentTap.length-1] != "." && _currentTap[_currentTap.length-1] != "-" && _currentTap[_currentTap.length-1] != "(") ||
-          (number == "(" && _currentTap[_currentTap.length-1] != ".") ||
-          (number == ")" && _currentTap[_currentTap.length-1] != "." && _currentTap[_currentTap.length-1] != " ") ||
+          (number == "(" && _currentTap[_currentTap.length-1] == " " &&_currentTap[_currentTap.length-1] != ".") ||
+          (number == ")" && _currentTap[_currentTap.length-1] != " " && _currentTap[_currentTap.length-1] != ".") ||
           (int.tryParse(number) != null)){
         _currentTap = "$_currentTap$number";
       }
@@ -131,11 +137,16 @@ class _CalculatriceState extends State<Calculatrice> {
         if (_result == _result!.toInt()){
           _currentTap = _result!.toInt().toString();
         } else {
-          _currentTap = _result!.toStringAsFixed(5);
+          _currentTap = _result!.toStringAsFixed(6);
 
-          // If the result is under 5 decimal
+          // If the result is under 6 decimal @_currentTap == "0."
           while(_currentTap.contains(".") && _currentTap.endsWith("0")){
             _currentTap = _currentTap.substring(0, _currentTap.length - 1);
+          }
+
+          // If result is under 6 decimal, print @_currentTap with origin result (.e.)
+          if (_currentTap == "0."){
+            _currentTap = _result!.toString();
           }
         }
 
