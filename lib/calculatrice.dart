@@ -47,7 +47,7 @@ class _CalculatriceState extends State<Calculatrice> {
 
 
       // Comma management
-      else if (number == "." && _currentTap[_currentTap.length-1] != "." && _currentTap[_currentTap.length-1] != _racineCarree && _currentTap[_currentTap.length-1] != "(" ){
+      else if (number == "." && _currentTap[_currentTap.length-1] != "." && _currentTap[_currentTap.length-1] != _racineCarree && _currentTap[_currentTap.length-1] != "(" && _currentTap[_currentTap.length-1] != "^" ){
         bool isComaInMember = false;
         for (int i = _currentTap.length - 1; i >= 0; i--){
 
@@ -65,7 +65,6 @@ class _CalculatriceState extends State<Calculatrice> {
 
         // No comma in the member --> add comma
         if (!isComaInMember){
-          print('prout');
           _currentTap = "$_currentTap$number";
         }
       }
@@ -221,7 +220,7 @@ class _CalculatriceState extends State<Calculatrice> {
         }
 
       // Catch error, when the parser return exception
-        // TODO : catch error divided by 0
+      // TODO : catch error divided by 0
       } catch (e){
         _result = 0;
         _currentTap = "0";
