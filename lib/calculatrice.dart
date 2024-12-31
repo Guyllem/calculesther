@@ -5,6 +5,7 @@ import 'package:simple_shadow/simple_shadow.dart';
 import 'package:math_expressions/math_expressions.dart';
 
 class Calculatrice extends StatefulWidget {
+
   const Calculatrice({super.key});
 
   @override
@@ -15,6 +16,8 @@ class _CalculatriceState extends State<Calculatrice> {
 
   String _currentTap = "0";
   double? _result = 0;
+  final String _racineCarree = "\u221A";
+
 
   // Update UI
   void _updateNumber(String number){
@@ -42,8 +45,10 @@ class _CalculatriceState extends State<Calculatrice> {
         _currentTap = "$_currentTap-";
       }
 
+
+      // Todo : regler problème point
       // Comma management
-      else if (number == "." && _currentTap[_currentTap.length-1] != "."){
+      else if (number == "." && _currentTap[_currentTap.length-1] != "." && _currentTap[_currentTap.length-1] != _racineCarree ){
         bool isComaInMember = false;
         for (int i = _currentTap.length - 1; i >= 0; i--){
 
@@ -76,7 +81,7 @@ class _CalculatriceState extends State<Calculatrice> {
       }
 
       // Close Parenthesis management
-      else if (number == ")" && _currentTap[_currentTap.length-1] != " " && _currentTap[_currentTap.length-1] != "."){
+      else if (number == ")" && _currentTap[_currentTap.length-1] != " " && _currentTap[_currentTap.length-1] != "." ){
         int countParenthesisOpen = 0;
         int countParenthesisClose = 0;
         for (int i = 0; i < _currentTap.length; i++){
@@ -97,14 +102,19 @@ class _CalculatriceState extends State<Calculatrice> {
         _currentTap = "$_currentTap$number";
       }
 
-      // Non-recurrence of sign
-        else if ((number == " + " && _currentTap[_currentTap.length-1] != " " && _currentTap[_currentTap.length-1] != "." && _currentTap[_currentTap.length-1] != "-" && _currentTap[_currentTap.length-1] != "(" && _currentTap[_currentTap.length-1] != "^") ||
-          (number == " - " && _currentTap[_currentTap.length-1] != " " && _currentTap[_currentTap.length-1] != "." && _currentTap[_currentTap.length-1] != "-") ||
-          (number == " * " && _currentTap[_currentTap.length-1] != " " && _currentTap[_currentTap.length-1] != "."  && _currentTap[_currentTap.length-1] != "-" && _currentTap[_currentTap.length-1] != "(" && _currentTap[_currentTap.length-1] != "^") ||
-          (number == " / " && _currentTap[_currentTap.length-1] != " " && _currentTap[_currentTap.length-1] != "." && _currentTap[_currentTap.length-1] != "-" && _currentTap[_currentTap.length-1] != "(" && _currentTap[_currentTap.length-1] != "^") ||
-          (number == "(" && (_currentTap[_currentTap.length-1] == " " || _currentTap[_currentTap.length-1] == "-") &&_currentTap[_currentTap.length-1] != ".") ||
-          (int.tryParse(number) != null)){
+      // Square root management
+      else if (number == _racineCarree && (_currentTap[_currentTap.length-1] == " " || _currentTap[_currentTap.length-1] == "(" || _currentTap[_currentTap.length-1] == "-")){
         _currentTap = "$_currentTap$number";
+      }
+
+      // Non-recurrence of sign
+      else if ((number == " + " && _currentTap[_currentTap.length-1] != " " && _currentTap[_currentTap.length-1] != "." && _currentTap[_currentTap.length-1] != "-" && _currentTap[_currentTap.length-1] != "(" && _currentTap[_currentTap.length-1] != "^" && _currentTap[_currentTap.length-1] != _racineCarree) ||
+        (number == " - " && _currentTap[_currentTap.length-1] != " " && _currentTap[_currentTap.length-1] != "." && _currentTap[_currentTap.length-1] != "-" && _currentTap[_currentTap.length-1] != _racineCarree) ||
+        (number == " * " && _currentTap[_currentTap.length-1] != " " && _currentTap[_currentTap.length-1] != "."  && _currentTap[_currentTap.length-1] != "-" && _currentTap[_currentTap.length-1] != "(" && _currentTap[_currentTap.length-1] != "^" && _currentTap[_currentTap.length-1] != _racineCarree) ||
+        (number == " / " && _currentTap[_currentTap.length-1] != " " && _currentTap[_currentTap.length-1] != "." && _currentTap[_currentTap.length-1] != "-" && _currentTap[_currentTap.length-1] != "(" && _currentTap[_currentTap.length-1] != "^" && _currentTap[_currentTap.length-1] != _racineCarree) ||
+        (number == "(" && (_currentTap[_currentTap.length-1] == " " || _currentTap[_currentTap.length-1] == "-" || _currentTap[_currentTap.length-1] == _racineCarree || _currentTap[_currentTap.length-1] == "(")) ||
+        (int.tryParse(number) != null && _currentTap[_currentTap.length-1] != ")")){
+      _currentTap = "$_currentTap$number";
       }
     });
   }
@@ -161,8 +171,36 @@ class _CalculatriceState extends State<Calculatrice> {
       // Calculates the expression with math_expressions package
       try {
         Parser parser = Parser();
+        _currentTap = _currentTap.replaceAll(_racineCarree, "sqrt(");
+
+        String temp = _currentTap;
+        int i = temp.indexOf("sqrt(");
+
+        while (i != -1) {
+          int start = i + 5;
+          int end = start;
+
+          while (end < temp.length && temp[end] != ' ' && temp[end] != ')') {
+            end++;
+          }
+
+          if (end < temp.length && temp[end] == ' ') {
+            temp = "${temp.substring(0, end)})${temp.substring(end)}";
+          }
+
+          else if (end == temp.length || temp[end] != ')') {
+            temp = "${temp.substring(0, end)})${temp.substring(end)}";
+          }
+
+          i = temp.indexOf("sqrt(", i + 1);
+        }
+
+        print(temp);
+        _currentTap = temp;
+
         Expression expression = parser.parse(_currentTap);
         ContextModel cm = ContextModel();
+
 
         _result = expression.evaluate(EvaluationType.REAL, cm);
 
@@ -245,7 +283,7 @@ class _CalculatriceState extends State<Calculatrice> {
                                       child: Image.asset('assets/icons/power_x.png',color : AppColors.text, height: 50,  width: 55),
                                     ),
                                     updateUI: (value) => _updateNumber(value)),
-                                ButtonInterface(label: "", interfaceSize: 15, width: 98, height: 65,
+                                ButtonInterface(label: _racineCarree, interfaceSize: 15, width: 98, height: 65,
                                     image:
                                     SimpleShadow(
                                       opacity: 0.7,
