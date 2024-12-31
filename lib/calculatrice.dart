@@ -46,9 +46,8 @@ class _CalculatriceState extends State<Calculatrice> {
       }
 
 
-      // Todo : regler problème point
       // Comma management
-      else if (number == "." && _currentTap[_currentTap.length-1] != "." && _currentTap[_currentTap.length-1] != _racineCarree ){
+      else if (number == "." && _currentTap[_currentTap.length-1] != "." && _currentTap[_currentTap.length-1] != _racineCarree && _currentTap[_currentTap.length-1] != "(" ){
         bool isComaInMember = false;
         for (int i = _currentTap.length - 1; i >= 0; i--){
 
@@ -66,6 +65,7 @@ class _CalculatriceState extends State<Calculatrice> {
 
         // No comma in the member --> add comma
         if (!isComaInMember){
+          print('prout');
           _currentTap = "$_currentTap$number";
         }
       }
@@ -195,7 +195,6 @@ class _CalculatriceState extends State<Calculatrice> {
           i = temp.indexOf("sqrt(", i + 1);
         }
 
-        print(temp);
         _currentTap = temp;
 
         Expression expression = parser.parse(_currentTap);
