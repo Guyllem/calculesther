@@ -1,6 +1,7 @@
 import 'package:calculesther/buttonInterface.dart';
 import 'package:flutter/material.dart';
 import 'package:calculesther/theme/colors.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:simple_shadow/simple_shadow.dart';
 import 'package:math_expressions/math_expressions.dart';
 
@@ -16,6 +17,9 @@ class _CalculatriceState extends State<Calculatrice> {
 
   String _currentTap = "0";
   double? _result = 0;
+  double paddingRight = 25;
+  double paddingBottom = 15;
+  double fontSize = 80;
   final String _racineCarree = "\u221A";
 
 
@@ -178,24 +182,19 @@ class _CalculatriceState extends State<Calculatrice> {
         while (i != -1) {
           int start = i + 5;
           int end = start;
-
           while (end < temp.length && temp[end] != ' ' && temp[end] != ')') {
             end++;
           }
-
           if (end < temp.length && temp[end] == ' ') {
             temp = "${temp.substring(0, end)})${temp.substring(end)}";
           }
-
           else if (end == temp.length || temp[end] != ')') {
             temp = "${temp.substring(0, end)})${temp.substring(end)}";
           }
-
           i = temp.indexOf("sqrt(", i + 1);
         }
 
         _currentTap = temp;
-
         Expression expression = parser.parse(_currentTap);
         ContextModel cm = ContextModel();
 
@@ -228,8 +227,43 @@ class _CalculatriceState extends State<Calculatrice> {
     });
   }
 
+  void _calculateFontSize(){
+    setState(() {
+      if (_currentTap.length <= 7){
+          paddingBottom = 15;
+          paddingRight = 25;
+          fontSize = 90;
+      } else if (_currentTap.length <= 11){
+          paddingBottom = 25;
+          paddingRight = 25;
+          fontSize = 60;
+      } else if (_currentTap.length <= 38) {
+        paddingBottom = 35;
+        paddingRight = 25;
+        fontSize = 50;
+      } else {
+        Fluttertoast.showToast(
+          msg: "Error : Too long",
+          toastLength: Toast.LENGTH_SHORT,
+          gravity: ToastGravity.TOP,
+          backgroundColor: AppColors.text,
+          textColor: AppColors.black,
+          fontSize: 25,
+          fontAsset: "assets/fonts/Lexend-Regular.ttf"
+        );
+        _currentTap = "0";
+        paddingBottom = 15;
+        paddingRight = 25;
+        fontSize = 90;
+      }
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
+    
+    _calculateFontSize();
+    
     return Scaffold(
       body: Column(
         children: [
@@ -237,12 +271,12 @@ class _CalculatriceState extends State<Calculatrice> {
             flex: 1,
             child: Container(
               color: AppColors.black,
-              padding: const EdgeInsets.fromLTRB(0, 0, 25, 10),
+              padding: EdgeInsets.fromLTRB(15, 10, paddingRight, paddingBottom),
               alignment: Alignment.bottomRight,
-              child: Text("${_result.toString()} | $_currentTap",
-                style: const TextStyle(
-                  fontSize: 50,
-                    shadows: <Shadow> [
+              child: Text( _currentTap,
+                style: TextStyle(
+                  fontSize: fontSize,
+                    shadows: const <Shadow> [
                       Shadow(
                         offset: Offset(2,2),
                         blurRadius: 10,
@@ -252,7 +286,6 @@ class _CalculatriceState extends State<Calculatrice> {
                   fontFamily: "Lexend-Regular",
                   color: AppColors.text),
                   textAlign: TextAlign.right,
-
               ),
             ),
           ),
