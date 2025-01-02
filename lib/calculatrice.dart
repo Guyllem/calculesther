@@ -219,10 +219,19 @@ class _CalculatriceState extends State<Calculatrice> {
         }
 
       // Catch error, when the parser return exception
-      // TODO : catch error divided by 0
       } catch (e){
         _result = 0;
         _currentTap = "0";
+
+        Fluttertoast.showToast(
+            msg: "Error : Syntax",
+            toastLength: Toast.LENGTH_SHORT,
+            gravity: ToastGravity.TOP,
+            backgroundColor: AppColors.purple,
+            textColor: AppColors.text,
+            fontSize: 20,
+            fontAsset: "assets/fonts/Lexend-Regular.ttf"
+        );
       }
     });
   }
@@ -243,12 +252,12 @@ class _CalculatriceState extends State<Calculatrice> {
         fontSize = 50;
       } else {
         Fluttertoast.showToast(
-          msg: "Error : Too long",
-          toastLength: Toast.LENGTH_SHORT,
+          msg: "Error : Your entry is too long",
+          toastLength: Toast.LENGTH_LONG,
           gravity: ToastGravity.TOP,
-          backgroundColor: AppColors.text,
-          textColor: AppColors.black,
-          fontSize: 25,
+          backgroundColor: AppColors.purple,
+          textColor: AppColors.text,
+          fontSize: 20,
           fontAsset: "assets/fonts/Lexend-Regular.ttf"
         );
         _currentTap = "0";
