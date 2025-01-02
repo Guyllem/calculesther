@@ -170,6 +170,7 @@ class _CalculatriceState extends State<Calculatrice> {
   // When equal button is pressed
   void _operation() {
     setState(() {
+      bool containsDivisionByZero = false;
 
       // Calculates the expression with math_expressions package
       try {
@@ -195,6 +196,21 @@ class _CalculatriceState extends State<Calculatrice> {
         }
 
         _currentTap = temp;
+
+        // Check for division by 0
+        if (_currentTap.contains("/ 0 ") || (_currentTap.contains("/ 0") && _currentTap[_currentTap.length-1] == "0")){
+          containsDivisionByZero = true;
+          Fluttertoast.showToast(
+              msg: "Error : Division by zero",
+              toastLength: Toast.LENGTH_SHORT,
+              gravity: ToastGravity.TOP,
+              backgroundColor: AppColors.purple,
+              textColor: AppColors.text,
+              fontSize: 20,
+              fontAsset: "assets/fonts/Lexend-Regular.ttf"
+          );
+        }
+
         Expression expression = parser.parse(_currentTap);
         ContextModel cm = ContextModel();
 
@@ -223,15 +239,19 @@ class _CalculatriceState extends State<Calculatrice> {
         _result = 0;
         _currentTap = "0";
 
-        Fluttertoast.showToast(
-            msg: "Error : Syntax",
-            toastLength: Toast.LENGTH_SHORT,
-            gravity: ToastGravity.TOP,
-            backgroundColor: AppColors.purple,
-            textColor: AppColors.text,
-            fontSize: 20,
-            fontAsset: "assets/fonts/Lexend-Regular.ttf"
-        );
+
+
+        if (!containsDivisionByZero){
+          Fluttertoast.showToast(
+              msg: "Error : Syntax",
+              toastLength: Toast.LENGTH_SHORT,
+              gravity: ToastGravity.TOP,
+              backgroundColor: AppColors.purple,
+              textColor: AppColors.text,
+              fontSize: 20,
+              fontAsset: "assets/fonts/Lexend-Regular.ttf"
+          );
+        }
       }
     });
   }
@@ -349,8 +369,26 @@ class _CalculatriceState extends State<Calculatrice> {
                               mainAxisAlignment: MainAxisAlignment.spaceAround,
                               children: [
                                 ButtonInterface(label: "10^", interfaceSize: 30, width: 98, height: 65, updateUI: (value) => _updateNumber(value)),
-                                ButtonInterface(label: "(", interfaceSize: 27, width: 98, height: 65, updateUI: (value) => _updateNumber(value)),
-                                ButtonInterface(label: ")", interfaceSize: 27, width: 98, height: 65, updateUI: (value) => _updateNumber(value)),
+                                ButtonInterface(label: "(", interfaceSize: 40, width: 98, height: 65,
+                                    image:
+                                    SimpleShadow(
+                                      opacity: 0.7,
+                                      color: AppColors.details,
+                                      offset: const Offset(0,0),
+                                      sigma: 3,
+                                      child: Image.asset('assets/icons/left-parenthesis.png',color : AppColors.text, height: 35,  width: 35),
+                                    ),
+                                    updateUI: (value) => _updateNumber(value)),
+                                ButtonInterface(label: ")", interfaceSize: 27, width: 98, height: 65,
+                                    image:
+                                    SimpleShadow(
+                                      opacity: 0.7,
+                                      color: AppColors.details,
+                                      offset: const Offset(0,0),
+                                      sigma: 3,
+                                      child: Image.asset('assets/icons/right-parenthesis.png',color : AppColors.text, height: 35,  width: 35),
+                                    ),
+                                    updateUI: (value) => _updateNumber(value)),
                                 ButtonInterface(label: " / ", interfaceSize: 40, width: 98, height: 65,
                                     image:
                                     SimpleShadow(
