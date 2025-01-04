@@ -4,6 +4,8 @@ import 'package:calculesther/theme/colors.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:simple_shadow/simple_shadow.dart';
 import 'package:math_expressions/math_expressions.dart';
+import 'loveEvent.dart';
+import 'dart:math';
 
 class Calculatrice extends StatefulWidget {
 
@@ -20,7 +22,11 @@ class _CalculatriceState extends State<Calculatrice> {
   double paddingRight = 25;
   double paddingBottom = 15;
   double fontSize = 80;
+
+  var random = Random();
+  late int randNumber;
   final String _racineCarree = "\u221A";
+
 
 
   // Update UI
@@ -288,6 +294,14 @@ class _CalculatriceState extends State<Calculatrice> {
     });
   }
 
+  void _loveButton(){
+    setState(() {
+      randNumber = random.nextInt(20);
+      LoveEvent.bubbleText(context, randNumber);
+      _currentTap = "$randNumber";
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     
@@ -467,7 +481,7 @@ class _CalculatriceState extends State<Calculatrice> {
                                             blurRadius:  70,
                                             color: AppColors.details)] ,
                                         size: 40),
-                                    updateUI: (value) => _updateNumber(value)),
+                                    updateUI: (value) => _updateNumber(value), operation: () => _loveButton()),
                                 ButtonInterface(label: " = ", interfaceSize: 40, width: 98, height: 65,
                                     image:
                                     SimpleShadow(
