@@ -11,7 +11,7 @@ class LoveEvent{
           barrierDismissible: true,
           builder: (BuildContext context){
             return const AlertDialog(
-              backgroundColor: AppColors.details,
+              backgroundColor: AppColors.purple,
               title: Text("Boîte à Amoureuse",style:
                 TextStyle(
                   fontFamily: "Lexend-Regular",
@@ -19,7 +19,12 @@ class LoveEvent{
                   fontSize: 25
                 ),
               ),
-              content: Text("Je t'aime")
+              content: Text("Je t'aime", style:
+                TextStyle(
+                  color: AppColors.text,
+                  fontSize: 15,
+                ),
+              )
             );
           });
     }
