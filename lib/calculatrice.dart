@@ -26,6 +26,9 @@ class _CalculatriceState extends State<Calculatrice> {
   double paddingBottom = 15;
   double fontSize = 80;
 
+  // Variable for button
+  double widthSkinnyButton = 95;
+
   // Stable variable
   var random = Random();
   late int randNumber;
@@ -346,7 +349,7 @@ class _CalculatriceState extends State<Calculatrice> {
                 Expanded(
                   flex: 2,
                   child: Container(
-                    padding: const EdgeInsets.all(16),
+                    padding: const EdgeInsets.all(8),
                     color: AppColors.black,
                       child: Column(
                         mainAxisAlignment: MainAxisAlignment.spaceAround,
@@ -354,7 +357,7 @@ class _CalculatriceState extends State<Calculatrice> {
                             Row(
                               mainAxisAlignment: MainAxisAlignment.spaceAround,
                               children: [
-                                ButtonInterface(label: "^", interfaceSize: 30, width: 98, height: 65,
+                                ButtonInterface(label: "^", interfaceSize: 30, width: widthSkinnyButton, height: 65,
                                     image:
                                     SimpleShadow(
                                       opacity: 0.7,
@@ -364,7 +367,7 @@ class _CalculatriceState extends State<Calculatrice> {
                                       child: Image.asset('assets/icons/power_x.png',color : AppColors.text, height: 50,  width: 55),
                                     ),
                                     updateUI: (value) => _updateNumber(value)),
-                                ButtonInterface(label: _racineCarree, interfaceSize: 15, width: 98, height: 65,
+                                ButtonInterface(label: _racineCarree, interfaceSize: 15, width: widthSkinnyButton, height: 65,
                                     image:
                                     SimpleShadow(
                                       opacity: 0.7,
@@ -374,8 +377,8 @@ class _CalculatriceState extends State<Calculatrice> {
                                       child: Image.asset('assets/icons/square-root.png',color : AppColors.text, height: 35,  width: 35),
                                     ),
                                     updateUI: (value) => _updateNumber(value)),
-                                ButtonInterface(label: "CA", interfaceSize: 32, width: 98, height: 65, updateUI: (value) => _clearUI()),
-                                ButtonInterface(label: "", interfaceSize: 30, width: 98, height: 65,
+                                ButtonInterface(label: "CA", interfaceSize: 32, width: widthSkinnyButton, height: 65, updateUI: (value) => _clearUI()),
+                                ButtonInterface(label: "", interfaceSize: 30, width: widthSkinnyButton, height: 65,
                                     image: SimpleShadow(
                                       opacity: 0.7,
                                       color: AppColors.details,
@@ -389,8 +392,8 @@ class _CalculatriceState extends State<Calculatrice> {
                             Row(
                               mainAxisAlignment: MainAxisAlignment.spaceAround,
                               children: [
-                                ButtonInterface(label: "10^", interfaceSize: 30, width: 98, height: 65, updateUI: (value) => _updateNumber(value)),
-                                ButtonInterface(label: "(", interfaceSize: 40, width: 98, height: 65,
+                                ButtonInterface(label: "10^", interfaceSize: 28, width: widthSkinnyButton, height: 65, updateUI: (value) => _updateNumber(value)),
+                                ButtonInterface(label: "(", interfaceSize: 40, width: widthSkinnyButton, height: 65,
                                     image:
                                     SimpleShadow(
                                       opacity: 0.7,
@@ -400,7 +403,7 @@ class _CalculatriceState extends State<Calculatrice> {
                                       child: Image.asset('assets/icons/left-parenthesis.png',color : AppColors.text, height: 35,  width: 35),
                                     ),
                                     updateUI: (value) => _updateNumber(value)),
-                                ButtonInterface(label: ")", interfaceSize: 27, width: 98, height: 65,
+                                ButtonInterface(label: ")", interfaceSize: 27, width: widthSkinnyButton, height: 65,
                                     image:
                                     SimpleShadow(
                                       opacity: 0.7,
@@ -410,7 +413,7 @@ class _CalculatriceState extends State<Calculatrice> {
                                       child: Image.asset('assets/icons/right-parenthesis.png',color : AppColors.text, height: 35,  width: 35),
                                     ),
                                     updateUI: (value) => _updateNumber(value)),
-                                ButtonInterface(label: " / ", interfaceSize: 40, width: 98, height: 65,
+                                ButtonInterface(label: " / ", interfaceSize: 40, width: widthSkinnyButton, height: 65,
                                     image:
                                     SimpleShadow(
                                       opacity: 0.7,
@@ -428,7 +431,7 @@ class _CalculatriceState extends State<Calculatrice> {
                                 ButtonInterface(label: "7", interfaceSize: 40, width: 92, height: 90, updateUI: (value) => _updateNumber(value)),
                                 ButtonInterface(label: "8", interfaceSize: 40, width: 92, height: 90, updateUI: (value) => _updateNumber(value)),
                                 ButtonInterface(label: "9", interfaceSize: 40, width: 92, height: 90, updateUI: (value) => _updateNumber(value)),
-                                ButtonInterface(label: " * ", interfaceSize: 40, width: 98, height: 65,
+                                ButtonInterface(label: " * ", interfaceSize: 40, width: widthSkinnyButton, height: 65,
                                     image:
                                     SimpleShadow(
                                       opacity: 0.7,
@@ -446,7 +449,7 @@ class _CalculatriceState extends State<Calculatrice> {
                                 ButtonInterface(label: "4", interfaceSize: 40, width: 92, height: 90, updateUI: (value) => _updateNumber(value)),
                                 ButtonInterface(label: "5", interfaceSize: 40, width: 92, height: 90, updateUI: (value) => _updateNumber(value)),
                                 ButtonInterface(label: "6", interfaceSize: 40, width: 92, height: 90, updateUI: (value) => _updateNumber(value)),
-                                ButtonInterface(label: " - ", interfaceSize: 40, width: 98, height: 65,
+                                ButtonInterface(label: " - ", interfaceSize: 40, width: widthSkinnyButton, height: 65,
                                     image:
                                     SimpleShadow(
                                       opacity: 0.7,
@@ -464,7 +467,7 @@ class _CalculatriceState extends State<Calculatrice> {
                                 ButtonInterface(label: "1", interfaceSize: 40, width: 92, height: 90, updateUI: (value) => _updateNumber(value)),
                                 ButtonInterface(label: "2", interfaceSize: 40, width: 92, height: 90, updateUI: (value) => _updateNumber(value)),
                                 ButtonInterface(label: "3", interfaceSize: 40, width: 92, height: 90, updateUI: (value) => _updateNumber(value)),
-                                ButtonInterface(label: " + ", interfaceSize: 40, width: 98, height: 65,
+                                ButtonInterface(label: " + ", interfaceSize: 40, width: widthSkinnyButton, height: 65,
                                     image:
                                     SimpleShadow(
                                       opacity: 0.7,
@@ -481,7 +484,7 @@ class _CalculatriceState extends State<Calculatrice> {
                               children: [
                                 ButtonInterface(label: ".", interfaceSize: 50, width: 92, height: 90, updateUI: (value) => _updateNumber(value)),
                                 ButtonInterface(label: "0", interfaceSize: 40, width: 92, height: 90, updateUI: (value) => _updateNumber(value)),
-                                ButtonInterface(label: "", interfaceSize: 30, width: 98, height: 90,
+                                ButtonInterface(label: "", interfaceSize: 30, width: 92, height: 90,
                                     iconData: const Icon(Icons.favorite, color: AppColors.black,
                                         shadows: [Shadow(
                                             offset: Offset(0,0),
@@ -489,7 +492,7 @@ class _CalculatriceState extends State<Calculatrice> {
                                             color: AppColors.details)] ,
                                         size: 40),
                                     updateUI: (value) => _updateNumber(value), operation: () => _loveButton()),
-                                ButtonInterface(label: " = ", interfaceSize: 40, width: 98, height: 65,
+                                ButtonInterface(label: " = ", interfaceSize: 40, width: widthSkinnyButton, height: 65,
                                     image:
                                     SimpleShadow(
                                       opacity: 0.7,
