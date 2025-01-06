@@ -17,12 +17,16 @@ class Calculatrice extends StatefulWidget {
 
 class _CalculatriceState extends State<Calculatrice> {
 
+  // Variable for result
   String _currentTap = "0";
   double? _result = 0;
+
+  // Variable for UI display
   double paddingRight = 25;
   double paddingBottom = 15;
   double fontSize = 80;
 
+  // Stable variable
   var random = Random();
   late int randNumber;
   final String _racineCarree = "\u221A";
@@ -186,6 +190,7 @@ class _CalculatriceState extends State<Calculatrice> {
         String temp = _currentTap;
         int i = temp.indexOf("sqrt(");
 
+        // Management of sqrt parenthesis --> for parser
         while (i != -1) {
           int start = i + 5;
           int end = start;
@@ -203,7 +208,7 @@ class _CalculatriceState extends State<Calculatrice> {
 
         _currentTap = temp;
 
-        // Check for division by 0
+        // Check for division by 0 and show correct toast for it
         if (_currentTap.contains("/ 0 ") || (_currentTap.contains("/ 0") && _currentTap[_currentTap.length-1] == "0")){
           containsDivisionByZero = true;
           Fluttertoast.showToast(
@@ -219,8 +224,6 @@ class _CalculatriceState extends State<Calculatrice> {
 
         Expression expression = parser.parse(_currentTap);
         ContextModel cm = ContextModel();
-
-
         _result = expression.evaluate(EvaluationType.REAL, cm);
 
         // Show integer when the number it is
@@ -245,8 +248,7 @@ class _CalculatriceState extends State<Calculatrice> {
         _result = 0;
         _currentTap = "0";
 
-
-
+        // Display toast if error (take care of /0)
         if (!containsDivisionByZero){
           Fluttertoast.showToast(
               msg: "Error : Syntax",
@@ -262,6 +264,7 @@ class _CalculatriceState extends State<Calculatrice> {
     });
   }
 
+  // Adapt the size of the display result correctly
   void _calculateFontSize(){
     setState(() {
       if (_currentTap.length <= 7){
@@ -277,6 +280,8 @@ class _CalculatriceState extends State<Calculatrice> {
         paddingRight = 25;
         fontSize = 50;
       } else {
+
+        // Toast is too long
         Fluttertoast.showToast(
           msg: "Error : Your entry is too long",
           toastLength: Toast.LENGTH_LONG,
@@ -286,6 +291,7 @@ class _CalculatriceState extends State<Calculatrice> {
           fontSize: 20,
           fontAsset: "assets/fonts/Lexend-Regular.ttf"
         );
+        // Reset UI display to normal length and size
         _currentTap = "0";
         paddingBottom = 15;
         paddingRight = 25;
@@ -294,17 +300,18 @@ class _CalculatriceState extends State<Calculatrice> {
     });
   }
 
+  // Button feature for gf
   void _loveButton(){
     setState(() {
       randNumber = random.nextInt(20);
       LoveEvent.bubbleText(context, randNumber);
-      _currentTap = "$randNumber";
     });
   }
 
   @override
   Widget build(BuildContext context) {
-    
+
+    // Recalculate the display UI every each action
     _calculateFontSize();
     
     return Scaffold(
@@ -316,7 +323,7 @@ class _CalculatriceState extends State<Calculatrice> {
               color: AppColors.black,
               padding: EdgeInsets.fromLTRB(15, 10, paddingRight, paddingBottom),
               alignment: Alignment.bottomRight,
-              child: Text( _currentTap,
+              child: Text(_currentTap,
                 style: TextStyle(
                   fontSize: fontSize,
                     shadows: const <Shadow> [
