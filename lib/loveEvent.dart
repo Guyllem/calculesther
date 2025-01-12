@@ -12,7 +12,7 @@ class LoveEvent{
           builder: (BuildContext context){
             return const AlertDialog(
               backgroundColor: AppColors.purple,
-              title: Text("Boîte à Amoureuse",style:
+              title: Text("Boîte à Amoureuse", style:
                 TextStyle(
                   fontFamily: "Lexend-Regular",
                   color: AppColors.text,

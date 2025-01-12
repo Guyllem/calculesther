@@ -21,14 +21,13 @@ class ButtonInterface extends StatelessWidget {
         onPressed: () {
           if (updateUI != null) updateUI!(label);
           if (operation != null) operation!();
-
         },
         icon: iconData,
         iconAlignment: IconAlignment.end,
         style : ElevatedButton.styleFrom(
             backgroundColor:AppColors.black,
             shadowColor: AppColors.details,
-            elevation: 10,
+            elevation: 7,
             side: const BorderSide(color: AppColors.purple, width: 3),
             shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(25)

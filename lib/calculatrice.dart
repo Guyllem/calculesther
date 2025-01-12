@@ -49,7 +49,7 @@ class _CalculatriceState extends State<Calculatrice> {
         }
 
       // Can't add at the start
-      } else if ((number == " + " || number == " * " || number == " / " || number == "^" || number == ")") && _currentTap == "0"){
+      } else if ((number == "" || number == " + " || number == " * " || number == " / " || number == "^" || number == ")") && _currentTap == "0"){
         _currentTap = "0";
       } else if (number == " - "  && _currentTap == "0"){
         _currentTap = "-";
@@ -485,12 +485,12 @@ class _CalculatriceState extends State<Calculatrice> {
                                 ButtonInterface(label: ".", interfaceSize: 50, width: 92, height: 90, updateUI: (value) => _updateNumber(value)),
                                 ButtonInterface(label: "0", interfaceSize: 40, width: 92, height: 90, updateUI: (value) => _updateNumber(value)),
                                 ButtonInterface(label: "", interfaceSize: 30, width: 92, height: 90,
-                                    iconData: const Icon(Icons.favorite, color: AppColors.black,
+                                    iconData: const Icon(Icons.favorite, color: AppColors.details,
                                         shadows: [Shadow(
                                             offset: Offset(0,0),
-                                            blurRadius:  70,
+                                            blurRadius: 100,
                                             color: AppColors.details)] ,
-                                        size: 40),
+                                        size: 35),
                                     updateUI: (value) => _updateNumber(value), operation: () => _loveButton()),
                                 ButtonInterface(label: " = ", interfaceSize: 40, width: widthSkinnyButton, height: 65,
                                     image:

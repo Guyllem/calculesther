@@ -6,4 +6,6 @@ class AppColors {
   static const Color details = Color(0xFFB145FF);
   static const Color shadow = Color(0xFFCF6BBE);
   static const Color text = Color(0xFFFFFFFF);
+  static const Color hearth = Color(0xFFFF0000);
+  static const Color hearthShadow = Color(0xFFFA5555);
 }
