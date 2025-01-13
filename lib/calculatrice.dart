@@ -58,7 +58,8 @@ class _CalculatriceState extends State<Calculatrice> {
       }
 
       // Good position for minus after a specific operator
-      else if (number == " - " && _currentTap.length >= 2 && (_currentTap[_currentTap.length - 1] == "(" || _currentTap[_currentTap.length-1] == "^" || _currentTap[_currentTap.length-2] == "*" || _currentTap[_currentTap.length-2] == "/"  || _currentTap[_currentTap.length-2] == "+")){
+      else if (number == " - " && (_currentTap[_currentTap.length - 1] == "(" || _currentTap[_currentTap.length-1] == "^" || (_currentTap.length >= 2 && (_currentTap[_currentTap.length-2] == "*" || _currentTap[_currentTap.length-2] == "/"  || _currentTap[_currentTap.length-2] == "+")))
+      ){
         _currentTap = "$_currentTap-";
       }
 
