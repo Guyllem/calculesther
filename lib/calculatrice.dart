@@ -49,7 +49,7 @@ class _CalculatriceState extends State<Calculatrice> {
         }
 
       // Can't add at the start
-      } else if ((number == "" || number == " + " || number == " * " || number == " / " || number == "^" || number == ")") && _currentTap == "0"){
+      } else if ((number == "" || number == " + " || number == " x " || number == " / " || number == "^" || number == ")") && _currentTap == "0"){
         _currentTap = "0";
       } else if (number == " - "  && _currentTap == "0"){
         _currentTap = "-";
@@ -58,7 +58,7 @@ class _CalculatriceState extends State<Calculatrice> {
       }
 
       // Good position for minus after a specific operator
-      else if (number == " - " && (_currentTap[_currentTap.length - 1] == "(" || _currentTap[_currentTap.length-1] == "^" || (_currentTap.length >= 2 && (_currentTap[_currentTap.length-2] == "*" || _currentTap[_currentTap.length-2] == "/"  || _currentTap[_currentTap.length-2] == "+")))
+      else if (number == " - " && (_currentTap[_currentTap.length - 1] == "(" || _currentTap[_currentTap.length-1] == "^" || (_currentTap.length >= 2 && (_currentTap[_currentTap.length-2] == "x" || _currentTap[_currentTap.length-2] == "/"  || _currentTap[_currentTap.length-2] == "+")))
       ){
         _currentTap = "$_currentTap-";
       }
@@ -90,9 +90,9 @@ class _CalculatriceState extends State<Calculatrice> {
       // 10 power management
       else if (number == "10^"){
         if (int.tryParse(_currentTap[_currentTap.length-1]) != null){
-          _currentTap = "$_currentTap * 10^";
+          _currentTap = "$_currentTap x 10^";
         }
-        else if (_currentTap[_currentTap.length-2] == "*"){
+        else if (_currentTap[_currentTap.length-2] == "x"){
           _currentTap = "$_currentTap$number";
         }
       }
@@ -127,7 +127,7 @@ class _CalculatriceState extends State<Calculatrice> {
       // Non-recurrence of sign
       else if ((number == " + " && _currentTap[_currentTap.length-1] != " " && _currentTap[_currentTap.length-1] != "." && _currentTap[_currentTap.length-1] != "-" && _currentTap[_currentTap.length-1] != "(" && _currentTap[_currentTap.length-1] != "^" && _currentTap[_currentTap.length-1] != _racineCarree) ||
         (number == " - " && _currentTap[_currentTap.length-1] != " " && _currentTap[_currentTap.length-1] != "." && _currentTap[_currentTap.length-1] != "-" && _currentTap[_currentTap.length-1] != _racineCarree) ||
-        (number == " * " && _currentTap[_currentTap.length-1] != " " && _currentTap[_currentTap.length-1] != "."  && _currentTap[_currentTap.length-1] != "-" && _currentTap[_currentTap.length-1] != "(" && _currentTap[_currentTap.length-1] != "^" && _currentTap[_currentTap.length-1] != _racineCarree) ||
+        (number == " x " && _currentTap[_currentTap.length-1] != " " && _currentTap[_currentTap.length-1] != "."  && _currentTap[_currentTap.length-1] != "-" && _currentTap[_currentTap.length-1] != "(" && _currentTap[_currentTap.length-1] != "^" && _currentTap[_currentTap.length-1] != _racineCarree) ||
         (number == " / " && _currentTap[_currentTap.length-1] != " " && _currentTap[_currentTap.length-1] != "." && _currentTap[_currentTap.length-1] != "-" && _currentTap[_currentTap.length-1] != "(" && _currentTap[_currentTap.length-1] != "^" && _currentTap[_currentTap.length-1] != _racineCarree) ||
         (number == "(" && (_currentTap[_currentTap.length-1] == " " || _currentTap[_currentTap.length-1] == "-" || _currentTap[_currentTap.length-1] == _racineCarree || _currentTap[_currentTap.length-1] == "(")) ||
         (int.tryParse(number) != null && _currentTap[_currentTap.length-1] != ")")){
@@ -189,6 +189,7 @@ class _CalculatriceState extends State<Calculatrice> {
       // Calculates the expression with math_expressions package
       try {
         Parser parser = Parser();
+        _currentTap = _currentTap.replaceAll(" x ", " * ");
         _currentTap = _currentTap.replaceAll(_racineCarree, "sqrt(");
 
         String temp = _currentTap;
@@ -432,7 +433,7 @@ class _CalculatriceState extends State<Calculatrice> {
                                 ButtonInterface(label: "7", interfaceSize: 40, width: 92, height: 90, updateUI: (value) => _updateNumber(value)),
                                 ButtonInterface(label: "8", interfaceSize: 40, width: 92, height: 90, updateUI: (value) => _updateNumber(value)),
                                 ButtonInterface(label: "9", interfaceSize: 40, width: 92, height: 90, updateUI: (value) => _updateNumber(value)),
-                                ButtonInterface(label: " * ", interfaceSize: 40, width: widthSkinnyButton, height: 65,
+                                ButtonInterface(label: " x ", interfaceSize: 40, width: widthSkinnyButton, height: 65,
                                     image:
                                     SimpleShadow(
                                       opacity: 0.7,
